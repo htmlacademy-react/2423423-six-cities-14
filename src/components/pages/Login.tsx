@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function Login() {
   return (
     <form className="places__sorting" action="#" method="get">
