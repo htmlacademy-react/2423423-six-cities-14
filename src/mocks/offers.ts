@@ -1,6 +1,6 @@
-import { IPlaces } from '../interfaces/IPlaces';
+import { IOfferMock } from '../interfaces/IOfferMock';
 
-export const placesMock: IPlaces[] = [
+export const offerMock: IOfferMock[] = [
   {
     id: 1,
     mark: 'Premium',

@@ -1,11 +1,10 @@
-import Card from '../card/Card';
-
-import { IPlaces } from '../../interfaces/IPlaces';
+import { IOfferMock } from '../../interfaces/IOfferMock';
+import List from '../list/List';
 type TPlacesProps = {
-  places: IPlaces[];
+  offers: IOfferMock[];
 };
 
-export default function Main({ places }: TPlacesProps) {
+export default function Main({ offers }: TPlacesProps) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -119,9 +118,7 @@ export default function Main({ places }: TPlacesProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {places.map((place) => (
-                  <Card key={place.id} place={place} />
-                ))}
+                <List offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

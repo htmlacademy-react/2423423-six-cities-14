@@ -1,7 +1,7 @@
-import { IPlaces } from '../../interfaces/IPlaces';
-
+import { IOfferMock } from '../../interfaces/IOfferMock';
+import { Link } from 'react-router-dom';
 type TPlacesProps = {
-  place: IPlaces;
+  place: IOfferMock;
 };
 
 export default function Card({ place }: TPlacesProps) {
@@ -43,7 +43,7 @@ export default function Card({ place }: TPlacesProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{place.name}</a>
+          <Link to={`/offers/${place.id}`}>{place.name}</Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>

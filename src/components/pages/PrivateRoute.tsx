@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import Favorites from './Favorites';
+import { IOfferMock } from '../../interfaces/IOfferMock';
 
-export default function PrivateRoute() {
-  const [login, setLogin] = useState(false);
+interface IOffersProps {
+  offers: IOfferMock[];
+}
+
+export default function PrivateRoute({offers}:IOffersProps) {
+  const [login, setLogin] = useState(true);
   return (
     <div className="page page--gray page--privateRoute">
-      {login ? <Favorites /> : <p>Извините, но доступ разрешен только авторизованным пользователям</p>}
+      {login ? <Favorites offers={offers} /> : <p>Извините, но доступ разрешен только авторизованным пользователям</p>}
     </div>
   );
 }

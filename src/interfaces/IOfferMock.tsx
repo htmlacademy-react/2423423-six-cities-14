@@ -1,4 +1,4 @@
-export interface IPlaces {
+export interface IOfferMock {
   id: number;
   mark: string;
   imgUrl: string;
