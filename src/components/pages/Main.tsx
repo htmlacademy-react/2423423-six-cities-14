@@ -1,6 +1,5 @@
-import Card from '../card/Card';
-
 import { IPlaces } from '../../interfaces/IPlaces';
+import List from '../List/List';
 type TPlacesProps = {
   places: IPlaces[];
 };
@@ -118,11 +117,8 @@ export default function Main({ places }: TPlacesProps) {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {places.map((place) => (
-                  <Card key={place.id} place={place} />
-                ))}
-              </div>
+
+              <List places={places} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
