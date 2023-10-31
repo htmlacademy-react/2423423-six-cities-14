@@ -1,11 +1,14 @@
-import { useState } from 'react';
 import Favorites from './Favorites';
+import Login from './Login';
 
-export default function PrivateRoute() {
-  const [login, setLogin] = useState(false);
+interface IPrivateRouteProps {
+  isAuthorized: boolean;
+}
+
+export default function PrivateRoute({ isAuthorized }: IPrivateRouteProps) {
   return (
     <div className="page page--gray page--privateRoute">
-      {login ? <Favorites /> : <p>Извините, но доступ разрешен только авторизованным пользователям</p>}
+      {!isAuthorized ? <Login /> : <Favorites />}
     </div>
   );
 }
