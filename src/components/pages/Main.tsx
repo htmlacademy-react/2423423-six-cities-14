@@ -1,5 +1,7 @@
 import { IPlaces } from '../../interfaces/IPlaces';
 import List from '../List/List';
+import { city } from '../../mock/City';
+import Map from '../Map/Map';
 type TPlacesProps = {
   places: IPlaces[];
 };
@@ -121,7 +123,9 @@ export default function Main({ places }: TPlacesProps) {
               <List places={places} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map ">
+                <Map city={city} places={places}/>
+              </section>
             </div>
           </div>
         </div>

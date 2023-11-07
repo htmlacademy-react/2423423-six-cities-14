@@ -7,14 +7,11 @@ type TPlacesProps = {
 
 export default function List({ places }: TPlacesProps) {
   const [isActiveCard, setIsActivCard] = useState<number>();
-  const getActiveCard = (id: number) => {
-    setIsActivCard(id);
-  };
 
   return (
     <div className="cities__places-list places__list tabs__content">
       {places.map((place) => (
-        <Card key={place.id} place={place} getActiveCard={getActiveCard} />
+        <Card key={place.id} place={place} getActiveCard={setIsActivCard} />
       ))}
     </div>
   );
