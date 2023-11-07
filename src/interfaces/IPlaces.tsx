@@ -7,4 +7,8 @@ export interface IPlaces {
   rating: number;
   name: string;
   type: string;
+  title: string;
+  lat: number;
+  lng: number;
+  zoom: number;
 }

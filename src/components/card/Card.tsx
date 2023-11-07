@@ -16,15 +16,13 @@ export default function Card({ place, getActiveCard }: TPlacesProps) {
           <span>{place.mark}</span>
         </div>
         <div className="cities__image-wrapper place-card__image-wrapper">
-          <a href="#">
-            <img
-              className="place-card__image"
-              src={place.imgUrl}
-              width="260"
-              height="200"
-              alt="Place image"
-            />
-          </a>
+          <img
+            className="place-card__image"
+            src={place.imgUrl}
+            width="260"
+            height="200"
+            alt="Place image"
+          />
         </div>
         <div className="place-card__info">
           <div className="place-card__price-wrapper">
@@ -50,9 +48,7 @@ export default function Card({ place, getActiveCard }: TPlacesProps) {
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <h2 className="place-card__name">
-            <a href="#">{place.name}</a>
-          </h2>
+          <h2 className="place-card__name">{place.name}</h2>
           <p className="place-card__type">{place.type}</p>
         </div>
       </article>
