@@ -185,12 +185,14 @@ export default function Offer() {
               <Reviews />
             </div>
           </div>
-          <section className="offer__map map">
-            <Map
-              city={city}
-              places={nearbyOffer}
-              selectedPoint={selectedPoint}
-            />
+          <section className="offer__map map ">
+            <div className="custom__map">
+              <Map
+                city={city}
+                places={nearbyOffer}
+                selectedPoint={selectedPoint}
+              />
+            </div>
           </section>
         </section>
 
@@ -200,7 +202,10 @@ export default function Offer() {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <List places={nearbyOffer} onListItemHover={handleListItemHover} />
+              <List
+                places={nearbyOffer}
+                onListItemHover={handleListItemHover}
+              />
             </div>
           </section>
         </div>
