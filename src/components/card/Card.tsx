@@ -1,20 +1,34 @@
 import { IPlaces } from '../../interfaces/IPlaces';
 import { Link } from 'react-router-dom';
+
 type TPlacesProps = {
   place: IPlaces;
   getActiveCard: (id: number) => void;
+  onListItemHover: (listItemName: string | undefined) => void;
 };
 
-export default function Card({ place, getActiveCard }: TPlacesProps) {
+export default function Card({
+  place,
+  getActiveCard,
+  onListItemHover,
+}: TPlacesProps) {
+  const handleListItemHover = (name: string | undefined) => {
+    onListItemHover(name);
+  };
+
   return (
     <Link to={`/offer/${place.id}`}>
       <article
         className="cities__card place-card"
         onMouseEnter={() => getActiveCard(place.id)}
+        onMouseOver={() => handleListItemHover(place.name)}
+        onMouseOut={() => handleListItemHover(undefined)}
       >
-        <div className="place-card__mark">
-          <span>{place.mark}</span>
-        </div>
+        {place.mark && (
+          <div className="place-card__mark">
+            <span>{place.mark}</span>
+          </div>
+        )}
         <div className="cities__image-wrapper place-card__image-wrapper">
           <img
             className="place-card__image"
