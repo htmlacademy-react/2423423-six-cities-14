@@ -7,6 +7,11 @@ import Header from '../Header/Header';
 import Map from '../Map/Map';
 import { city } from '../../mock/City';
 import List from '../List/List';
+import { useSelector, TypedUseSelectorHook } from 'react-redux';
+import { store } from '../../store';
+import { ICity } from '../../interfaces/ICity';
+
+type State = ReturnType<typeof store.getState>;
 
 export default function Offer() {
   const params = useParams();
@@ -19,10 +24,35 @@ export default function Offer() {
     }
   }, [offerId]);
 
+  const useAppSelector: TypedUseSelectorHook<State> = useSelector;
+  const placesTest = useAppSelector((state) => state.city);
+
+  const [isActiveCity, setIsActiveCity] = useState<ICity | undefined>(
+    undefined
+  );
+  const [isAllPlaces, setIsAllPlaces] = useState<IPlaces[] | undefined>(
+    undefined
+  );
+  useEffect(() => {
+    const findCityData = city.find((item) => item.name === placesTest);
+    if (findCityData) {
+      setIsActiveCity(findCityData);
+    }
+
+    const findPlacesCityData = placesMock.filter(
+      (item) => item.location === placesTest
+    );
+    if (findPlacesCityData) {
+      setIsAllPlaces(findPlacesCityData);
+    }
+  }, [placesTest]);
+
   //поиск предложений рядом, кроме текущего
   const [nearbyOffer, setNearbyOffer] = useState<IPlaces[]>();
   useEffect(() => {
-    const foundOffer = placesMock.filter((item) => item.id !== offerId);
+    const foundOffer = placesMock
+      .filter((item) => item.location === placesTest)
+      .filter((elem) => elem.id !== offerId);
     if (foundOffer) {
       setNearbyOffer(foundOffer);
     }
@@ -39,10 +69,7 @@ export default function Offer() {
     setSelectedPoint(currentPoint);
   };
 
-  if (!infoOffer) {
-    return false;
-  }
-  if (!nearbyOffer) {
+  if (!infoOffer || !nearbyOffer || !isActiveCity || !isAllPlaces) {
     return false;
   }
 
@@ -188,7 +215,8 @@ export default function Offer() {
           <section className="offer__map map ">
             <div className="custom__map">
               <Map
-                city={city}
+                key={isActiveCity.name}
+                city={isActiveCity}
                 places={nearbyOffer}
                 selectedPoint={selectedPoint}
               />

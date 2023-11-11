@@ -28,6 +28,7 @@ export default function Map({ city, places, selectedPoint }: TCityProps) {
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
 
+
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
@@ -49,7 +50,7 @@ export default function Map({ city, places, selectedPoint }: TCityProps) {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, places, selectedPoint]);
+  }, [map, city, places, selectedPoint]);
 
   return <div style={{ height: '600px' }} ref={mapRef}></div>;
 }

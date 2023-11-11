@@ -1,8 +1,20 @@
-function Sort() {
+import { ICity } from '../../interfaces/ICity';
+import { placesMock } from '../../mock/Places';
+
+type ICityProps = {
+  isActiveCity: ICity;
+};
+
+function Sort({ isActiveCity }: ICityProps) {
+  const arrayOffers = placesMock.filter(
+    (item) => item.location === isActiveCity.name
+  );
   return (
     <>
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">312 places to stay in Amsterdam</b>
+      <b className="places__found">
+        {arrayOffers.length} places to stay in {isActiveCity.name}
+      </b>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex={0}>
