@@ -1,10 +1,15 @@
+import { AppRoute } from '../../consts/route';
+
 function Header() {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link header__logo-link--active">
+            <a
+              className="header__logo-link header__logo-link--active"
+              href={AppRoute.Root}
+            >
               <img
                 className="header__logo"
                 src="img/logo.svg"
