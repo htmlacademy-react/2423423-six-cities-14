@@ -7,6 +7,7 @@ import { placesMock } from './mock/Places';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import PrivateRoute from './components/pages/PrivateRoute';
+import './styles/styles.css';
 
 export default function App() {
   const places: IPlaces[] = placesMock;

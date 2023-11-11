@@ -1,31 +1,55 @@
 import { IPlaces } from '../../interfaces/IPlaces';
 import leaflet from 'leaflet';
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { ICity } from '../../interfaces/ICity';
+import { Marker, layerGroup } from 'leaflet';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/consts';
 
 type TCityProps = {
   city: ICity;
-  places:IPlaces[];
+  places: IPlaces[];
+  selectedPoint: IPlaces | undefined;
 };
 
-export default function Map({ city, places }: TCityProps) {
+const defaultCustomIcon = leaflet.icon({
+  iconUrl: URL_MARKER_DEFAULT,
+  iconSize: [60, 60],
+  iconAnchor: [20, 60],
+});
+const currentCustomIcon = leaflet.icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [60, 60],
+  iconAnchor: [20, 60],
+});
+
+export default function Map({ city, places, selectedPoint }: TCityProps) {
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
 
   useEffect(() => {
     if (map) {
-      places.forEach((place) => {
-        leaflet
-          .marker({
-            lat: place.lat,
-            lng: place.lng,
-          })
-          .addTo(map);
-      });
-    }
-  }, [map, places]);
+      const markerLayer = layerGroup().addTo(map);
 
-  return <div style={{ height: '794px', width:'100%' }} ref={mapRef}></div>;
+      places.forEach((place) => {
+        const marker = new Marker({
+          lat: place.lat,
+          lng: place.lng,
+        });
+        marker
+          .setIcon(
+            selectedPoint !== undefined && place.name === selectedPoint.name
+              ? currentCustomIcon
+              : defaultCustomIcon
+          )
+          .addTo(markerLayer);
+      });
+      return () => {
+        map.removeLayer(markerLayer);
+      };
+    }
+  }, [map, places, selectedPoint]);
+
+  return <div style={{ height: '600px' }} ref={mapRef}></div>;
 }
