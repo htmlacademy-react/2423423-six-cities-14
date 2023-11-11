@@ -80,7 +80,6 @@ export const reviewsMock: IReviewsMock[] = [
     time: '2020-12-13',
     idPlace: 4,
   },
-<<<<<<< HEAD
   {
     id: 9,
     user: 'Emily',
@@ -207,6 +206,4 @@ export const reviewsMock: IReviewsMock[] = [
     time: '2021-01-30',
     idPlace: 8,
   },
-=======
->>>>>>> origin
 ];
