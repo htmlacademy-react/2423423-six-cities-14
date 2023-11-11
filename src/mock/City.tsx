@@ -1,4 +1,5 @@
 import { ICity } from '../interfaces/ICity';
+<<<<<<< HEAD
 export const city: ICity[] = [
   {
     id: 1,
@@ -43,3 +44,11 @@ export const city: ICity[] = [
     zoom: 14,
   },
 ];
+=======
+export const city: ICity = {
+  title: 'Amsterdam',
+  lat: 52.373057,
+  lng: 4.892557,
+  zoom: 12,
+};
+>>>>>>> origin

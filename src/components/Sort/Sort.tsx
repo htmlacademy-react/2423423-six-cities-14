@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { ICity } from '../../interfaces/ICity';
 import { placesMock } from '../../mock/Places';
 
@@ -15,6 +16,13 @@ function Sort({ isActiveCity }: ICityProps) {
       <b className="places__found">
         {arrayOffers.length} places to stay in {isActiveCity.name}
       </b>
+=======
+function Sort() {
+  return (
+    <>
+      <h2 className="visually-hidden">Places</h2>
+      <b className="places__found">312 places to stay in Amsterdam</b>
+>>>>>>> origin
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex={0}>

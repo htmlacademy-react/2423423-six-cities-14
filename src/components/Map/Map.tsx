@@ -50,7 +50,11 @@ export default function Map({ city, places, selectedPoint }: TCityProps) {
         map.removeLayer(markerLayer);
       };
     }
+<<<<<<< HEAD
   }, [map, city, places, selectedPoint]);
+=======
+  }, [map, places, selectedPoint]);
+>>>>>>> origin
 
   return <div style={{ height: '600px' }} ref={mapRef}></div>;
 }
