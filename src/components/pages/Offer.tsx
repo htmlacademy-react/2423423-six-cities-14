@@ -7,14 +7,11 @@ import Header from '../Header/Header';
 import Map from '../Map/Map';
 import { city } from '../../mock/City';
 import List from '../List/List';
-<<<<<<< HEAD
 import { useSelector, TypedUseSelectorHook } from 'react-redux';
 import { store } from '../../store';
 import { ICity } from '../../interfaces/ICity';
 
 type State = ReturnType<typeof store.getState>;
-=======
->>>>>>> origin
 
 export default function Offer() {
   const params = useParams();
@@ -27,7 +24,6 @@ export default function Offer() {
     }
   }, [offerId]);
 
-<<<<<<< HEAD
   const useAppSelector: TypedUseSelectorHook<State> = useSelector;
   const placesTest = useAppSelector((state) => state.city);
 
@@ -57,12 +53,6 @@ export default function Offer() {
     const foundOffer = placesMock
       .filter((item) => item.location === placesTest)
       .filter((elem) => elem.id !== offerId);
-=======
-  //поиск предложений рядом, кроме текущего
-  const [nearbyOffer, setNearbyOffer] = useState<IPlaces[]>();
-  useEffect(() => {
-    const foundOffer = placesMock.filter((item) => item.id !== offerId);
->>>>>>> origin
     if (foundOffer) {
       setNearbyOffer(foundOffer);
     }
@@ -79,18 +69,9 @@ export default function Offer() {
     setSelectedPoint(currentPoint);
   };
 
-<<<<<<< HEAD
   if (!infoOffer || !nearbyOffer || !isActiveCity || !isAllPlaces) {
     return false;
   }
-=======
-  if (!infoOffer) {
-    return false;
-  }
-  if (!nearbyOffer) {
-    return false;
-  }
->>>>>>> origin
 
   return (
     <div className="page">
@@ -234,12 +215,8 @@ export default function Offer() {
           <section className="offer__map map ">
             <div className="custom__map">
               <Map
-<<<<<<< HEAD
                 key={isActiveCity.name}
                 city={isActiveCity}
-=======
-                city={city}
->>>>>>> origin
                 places={nearbyOffer}
                 selectedPoint={selectedPoint}
               />
