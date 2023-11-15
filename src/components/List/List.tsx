@@ -16,7 +16,7 @@ export default function List({ places, onListItemHover }: TPlacesProps) {
         <Card
           key={place.id}
           place={place}
-          getActiveCard={setIsActivCard}
+          setIsActivCard={setIsActivCard}
           onListItemHover={onListItemHover}
         />
       ))}

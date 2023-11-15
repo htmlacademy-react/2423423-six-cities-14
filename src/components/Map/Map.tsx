@@ -24,10 +24,10 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [14, 20],
 });
 
-export default function Map({ city, places, selectedPoint }: TCityProps) {
+export default function Map(props: TCityProps): JSX.Element {
+  const {city, places, selectedPoint} = props;
   const mapRef = useRef(null);
-  const map = useMap({ mapRef, city });
-
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {

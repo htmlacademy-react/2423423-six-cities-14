@@ -7,11 +7,8 @@ import Header from '../Header/Header';
 import Map from '../Map/Map';
 import { city } from '../../mock/City';
 import List from '../List/List';
-import { useSelector, TypedUseSelectorHook } from 'react-redux';
-import { store } from '../../store';
 import { ICity } from '../../interfaces/ICity';
-
-type State = ReturnType<typeof store.getState>;
+import { useAppSelector } from '../../interfaces/IStore';
 
 export default function Offer() {
   const params = useParams();
@@ -24,34 +21,21 @@ export default function Offer() {
     }
   }, [offerId]);
 
-  const useAppSelector: TypedUseSelectorHook<State> = useSelector;
-  const placesTest = useAppSelector((state) => state.city);
+  const activeCityName = useAppSelector((state) => state.city);
 
-  const [isActiveCity, setIsActiveCity] = useState<ICity | undefined>(
-    undefined
-  );
-  const [isAllPlaces, setIsAllPlaces] = useState<IPlaces[] | undefined>(
-    undefined
-  );
+  const [isActiveCityData, setIsActiveCityData] = useState<ICity>();
   useEffect(() => {
-    const findCityData = city.find((item) => item.name === placesTest);
+    const findCityData = city.find((item) => item.name === activeCityName);
     if (findCityData) {
-      setIsActiveCity(findCityData);
+      setIsActiveCityData(findCityData);
     }
-
-    const findPlacesCityData = placesMock.filter(
-      (item) => item.location === placesTest
-    );
-    if (findPlacesCityData) {
-      setIsAllPlaces(findPlacesCityData);
-    }
-  }, [placesTest]);
+  }, [activeCityName]);
 
   //поиск предложений рядом, кроме текущего
   const [nearbyOffer, setNearbyOffer] = useState<IPlaces[]>();
   useEffect(() => {
     const foundOffer = placesMock
-      .filter((item) => item.location === placesTest)
+      .filter((item) => item.location === activeCityName)
       .filter((elem) => elem.id !== offerId);
     if (foundOffer) {
       setNearbyOffer(foundOffer);
@@ -69,7 +53,7 @@ export default function Offer() {
     setSelectedPoint(currentPoint);
   };
 
-  if (!infoOffer || !nearbyOffer || !isActiveCity || !isAllPlaces) {
+  if (!infoOffer || !nearbyOffer || !isActiveCityData) {
     return false;
   }
 
@@ -215,8 +199,8 @@ export default function Offer() {
           <section className="offer__map map ">
             <div className="custom__map">
               <Map
-                key={isActiveCity.name}
-                city={isActiveCity}
+                key={isActiveCityData.name}
+                city={isActiveCityData}
                 places={nearbyOffer}
                 selectedPoint={selectedPoint}
               />

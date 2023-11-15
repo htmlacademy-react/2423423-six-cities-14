@@ -1,14 +1,13 @@
 import { city } from '../../mock/City';
 import { useDispatch } from 'react-redux';
 import { changedCity } from '../../store/action';
-import { useState } from 'react';
-
+import { useAppSelector } from '../../interfaces/IStore';
+import { Link } from 'react-router-dom';
 function Tabs() {
-  const [isActiveTab, setIsActiveTab] = useState('Paris');
+  const activeCityName = useAppSelector((state) => state.city);
   const dispatch = useDispatch();
   const handleClick = (name: string) => {
     dispatch(changedCity(name));
-    setIsActiveTab(name);
   };
   return (
     <>
@@ -22,12 +21,14 @@ function Tabs() {
                 key={item.name}
                 onClick={() => handleClick(item.name)}
               >
-                <a
-                  className={`locations__item-link tabs__item  ${isActiveTab === item.name && 'tabs__item--active'}`}
-                  href="#"
+                <Link
+                  to="#"
+                  className={`locations__item-link tabs__item  ${
+                    activeCityName === item.name && 'tabs__item--active'
+                  }`}
                 >
                   <span>{item.name}</span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -5,7 +5,7 @@ type ICityProps = {
   isActiveCity: ICity;
 };
 
-function Sort({ isActiveCity }: ICityProps) {
+function FilterOffer({ isActiveCity }: ICityProps) {
   const arrayOffers = placesMock.filter(
     (item) => item.location === isActiveCity.name
   );
@@ -42,4 +42,4 @@ function Sort({ isActiveCity }: ICityProps) {
   );
 }
 
-export default Sort;
+export default FilterOffer;

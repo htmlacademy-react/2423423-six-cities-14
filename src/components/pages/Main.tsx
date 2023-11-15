@@ -5,53 +5,46 @@ import Map from '../Map/Map';
 import { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import Tabs from '../Tabs/Tabs';
-import Sort from '../Sort/Sort';
+import FilterOffer from '../FilterOffer/FilterOffer';
 import { placesMock } from '../../mock/Places';
-import { useSelector, TypedUseSelectorHook } from 'react-redux';
-import { store } from '../../store';
 import { ICity } from '../../interfaces/ICity';
-
-type State = ReturnType<typeof store.getState>;
+import { useAppSelector } from '../../interfaces/IStore';
 
 type TPlacesProps = {
   places: IPlaces[];
 };
 
 export default function Main({ places }: TPlacesProps) {
+  const activeCityName = useAppSelector((state) => state.city);
+
   const [selectedPoint, setSelectedPoint] = useState<IPlaces | undefined>(
     undefined
   );
 
-  //поиск города и его точек предложений по аренде, в зависимости от нажатого города в tabs
+  //определение на какое предложение пользователь навел мышь
   const handleListItemHover = (listItemName: string | undefined) => {
     const currentPoint = places.find((point) => point.name === listItemName);
     setSelectedPoint(currentPoint);
   };
 
-  const useAppSelector: TypedUseSelectorHook<State> = useSelector;
-  const placesTest = useAppSelector((state) => state.city);
-
-  const [isActiveCity, setIsActiveCity] = useState<ICity | undefined>(
-    undefined
-  );
-  const [isAllPlaces, setIsAllPlaces] = useState<IPlaces[] | undefined>(
-    undefined
-  );
+  //определяю данные активного города и данные его предложений для передачи в карту
+  const [isActiveCityData, setIsActiveCityData] = useState<ICity>();
+  const [isAllPlacesData, setIsAllPlacesData] = useState<IPlaces[]>();
   useEffect(() => {
-    const findCityData = city.find((item) => item.name === placesTest);
+    const findCityData = city.find((item) => item.name === activeCityName);
     if (findCityData) {
-      setIsActiveCity(findCityData);
+      setIsActiveCityData(findCityData);
     }
 
     const findPlacesCityData = placesMock.filter(
-      (item) => item.location === placesTest
+      (item) => item.location === activeCityName
     );
     if (findPlacesCityData) {
-      setIsAllPlaces(findPlacesCityData);
+      setIsAllPlacesData(findPlacesCityData);
     }
-  }, [placesTest]);
+  }, [activeCityName]);
 
-  if (!isActiveCity || !isAllPlaces) {
+  if (!isActiveCityData || !isAllPlacesData) {
     return false;
   }
   return (
@@ -64,16 +57,19 @@ export default function Main({ places }: TPlacesProps) {
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
-              <Sort isActiveCity={isActiveCity} />
+              <FilterOffer isActiveCity={isActiveCityData} />
 
-              <List places={isAllPlaces} onListItemHover={handleListItemHover} />
+              <List
+                places={isAllPlacesData}
+                onListItemHover={handleListItemHover}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map ">
                 <Map
-                  key={isActiveCity.name}
-                  city={isActiveCity}
-                  places={isAllPlaces}
+                  key={isActiveCityData.name}
+                  city={isActiveCityData}
+                  places={isAllPlacesData}
                   selectedPoint={selectedPoint}
                 />
               </section>
