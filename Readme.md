@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Диана Иващенко](https://up.htmlacademy.ru/react/14/user/2423423).
-* Наставник: `Неизвестно`.
+* Наставник: [Arthur Litovko](https://htmlacademy.ru/profile/id6927).
 
 ---
 
