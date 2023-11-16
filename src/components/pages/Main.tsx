@@ -16,6 +16,23 @@ type TPlacesProps = {
 
 export default function Main({ places }: TPlacesProps) {
   const activeCityName = useAppSelector((state) => state.city);
+  //определение id сортировки и применение соответствующего фильтра
+  const activeFilterCategory = useAppSelector((state) => state.filter.id);
+  const switchFilter = (itemA: IPlaces, itemB: IPlaces) => {
+    switch (activeFilterCategory) {
+      case 'lth':
+        return itemA.price - itemB.price;
+        break;
+      case 'htl':
+        return itemB.price - itemA.price;
+        break;
+      case 'top':
+        return itemB.rating - itemA.rating;
+        break;
+      default:
+        break;
+    }
+  };
 
   const [selectedPoint, setSelectedPoint] = useState<IPlaces | undefined>(
     undefined
@@ -40,9 +57,10 @@ export default function Main({ places }: TPlacesProps) {
       (item) => item.location === activeCityName
     );
     if (findPlacesCityData) {
-      setIsAllPlacesData(findPlacesCityData);
+      const sortingPlacesData = findPlacesCityData.sort((itemA, itemB) => switchFilter(itemA, itemB) );
+      setIsAllPlacesData(sortingPlacesData);
     }
-  }, [activeCityName]);
+  }, [activeCityName, activeFilterCategory]);
 
   if (!isActiveCityData || !isAllPlacesData) {
     return false;
