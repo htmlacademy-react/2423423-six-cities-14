@@ -10,4 +10,5 @@ export interface IPlaces {
   lat: number;
   lng: number;
   zoom: number;
+  location: string;
 }

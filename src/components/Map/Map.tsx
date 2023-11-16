@@ -15,18 +15,19 @@ type TCityProps = {
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [60, 60],
-  iconAnchor: [20, 60],
+  iconSize: [30, 40],
+  iconAnchor: [14, 20],
 });
 const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
-  iconSize: [60, 60],
-  iconAnchor: [20, 60],
+  iconSize: [30, 40],
+  iconAnchor: [14, 20],
 });
 
-export default function Map({ city, places, selectedPoint }: TCityProps) {
+export default function Map(props: TCityProps): JSX.Element {
+  const {city, places, selectedPoint} = props;
   const mapRef = useRef(null);
-  const map = useMap({ mapRef, city });
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
@@ -49,7 +50,7 @@ export default function Map({ city, places, selectedPoint }: TCityProps) {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, places, selectedPoint]);
+  }, [map, city, places, selectedPoint]);
 
   return <div style={{ height: '600px' }} ref={mapRef}></div>;
 }

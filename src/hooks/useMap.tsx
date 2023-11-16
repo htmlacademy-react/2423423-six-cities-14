@@ -2,14 +2,12 @@ import { useEffect, useState, useRef, MutableRefObject } from 'react';
 import { ICity } from '../interfaces/ICity';
 import { Map, TileLayer } from 'leaflet';
 
-interface TPlacesProps {
-  mapRef: MutableRefObject<HTMLElement | null>;
-  city: ICity;
-}
-
-function useMap({ mapRef, city }: TPlacesProps) {
+function useMap(
+  mapRef: MutableRefObject<HTMLElement | null>,
+  city: ICity
+): Map | null {
   const [map, setMap] = useState<Map | null>(null);
-  const isRenderedRef = useRef(false);
+  const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
@@ -21,7 +19,6 @@ function useMap({ mapRef, city }: TPlacesProps) {
         zoom: city.zoom,
       });
 
-      // "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       const layer = new TileLayer(
         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
         {

@@ -1,5 +1,6 @@
 export interface ICity {
-  title: string;
+  id: number;
+  name: string;
   lat: number;
   lng: number;
   zoom: number;

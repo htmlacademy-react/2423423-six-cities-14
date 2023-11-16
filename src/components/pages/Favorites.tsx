@@ -13,8 +13,8 @@ export default function Favorites() {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {locations.map((item) => (
-                <>
-                  <li key={item} className="favorites__locations-items">
+                <div key={item}>
+                  <li className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
                         <a className="locations__item-link" href="#">
@@ -83,7 +83,7 @@ export default function Favorites() {
                       </article>
                     ))}
                   </div>
-                </>
+                </div>
               ))}
             </ul>
           </section>

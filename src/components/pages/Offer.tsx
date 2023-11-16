@@ -7,6 +7,8 @@ import Header from '../Header/Header';
 import Map from '../Map/Map';
 import { city } from '../../mock/City';
 import List from '../List/List';
+import { ICity } from '../../interfaces/ICity';
+import { useAppSelector } from '../../interfaces/IStore';
 
 export default function Offer() {
   const params = useParams();
@@ -19,10 +21,22 @@ export default function Offer() {
     }
   }, [offerId]);
 
+  const activeCityName = useAppSelector((state) => state.city);
+
+  const [isActiveCityData, setIsActiveCityData] = useState<ICity>();
+  useEffect(() => {
+    const findCityData = city.find((item) => item.name === activeCityName);
+    if (findCityData) {
+      setIsActiveCityData(findCityData);
+    }
+  }, [activeCityName]);
+
   //поиск предложений рядом, кроме текущего
   const [nearbyOffer, setNearbyOffer] = useState<IPlaces[]>();
   useEffect(() => {
-    const foundOffer = placesMock.filter((item) => item.id !== offerId);
+    const foundOffer = placesMock
+      .filter((item) => item.location === activeCityName)
+      .filter((elem) => elem.id !== offerId);
     if (foundOffer) {
       setNearbyOffer(foundOffer);
     }
@@ -39,10 +53,7 @@ export default function Offer() {
     setSelectedPoint(currentPoint);
   };
 
-  if (!infoOffer) {
-    return false;
-  }
-  if (!nearbyOffer) {
+  if (!infoOffer || !nearbyOffer || !isActiveCityData) {
     return false;
   }
 
@@ -188,7 +199,8 @@ export default function Offer() {
           <section className="offer__map map ">
             <div className="custom__map">
               <Map
-                city={city}
+                key={isActiveCityData.name}
+                city={isActiveCityData}
                 places={nearbyOffer}
                 selectedPoint={selectedPoint}
               />
