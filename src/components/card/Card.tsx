@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom';
 
 type TPlacesProps = {
   place: IPlaces;
-  setIsActivCard: (id: number) => void;
   onListItemHover: (listItemName: string | undefined) => void;
 };
 
 export default function Card({
   place,
-  setIsActivCard,
   onListItemHover,
 }: TPlacesProps) {
   const handleListItemHover = (name: string | undefined) => {
@@ -20,7 +18,6 @@ export default function Card({
     <Link to={`/offer/${place.id}`}>
       <article
         className="cities__card place-card"
-        onMouseEnter={() => setIsActivCard(place.id)}
         onMouseOver={() => handleListItemHover(place.name)}
         onMouseOut={() => handleListItemHover(undefined)}
       >
