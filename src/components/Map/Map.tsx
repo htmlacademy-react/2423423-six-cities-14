@@ -10,6 +10,7 @@ type TCityProps = {
   city: OfferApi;
   places: OfferApi[];
   selectedPoint: OfferApi | undefined;
+  size?: string;
 };
 
 const defaultCustomIcon = leaflet.icon({
@@ -24,7 +25,8 @@ const currentCustomIcon = leaflet.icon({
 });
 
 export default function Map(props: TCityProps): JSX.Element {
-  const {city, places, selectedPoint} = props;
+  const { city, places, selectedPoint, size } = props;
+  const styleMapSize = size ? '600px' : '100vh';
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -51,5 +53,5 @@ export default function Map(props: TCityProps): JSX.Element {
     }
   }, [map, city, places, selectedPoint]);
 
-  return <div style={{ height: '100vh' }} ref={mapRef}></div>;
+  return <div style={{ height: `${styleMapSize}` }} ref={mapRef}></div>;
 }

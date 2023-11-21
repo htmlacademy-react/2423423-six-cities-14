@@ -4,6 +4,8 @@ export const Action = {
   CHANGE_CITY: 'CHANGE_CITY',
   FILTER_CITY:'FILTER_CITY',
   GET_OFFERS:'data/fetchOffers',
+  GET_OFFER:'data/fetchOffer',
+  GET_OFFERNEARBY:'data/fetchOfferNearby',
 };
 
 
@@ -17,6 +19,14 @@ export const changedFilter = createAction(Action.FILTER_CITY, (id: string, value
   },
 }));
 export const setOffers = createAction(Action.GET_OFFERS, (value: OfferApi[]) => ({
+  payload: value,
+}));
+
+export const setOffer = createAction(Action.GET_OFFER, (value: OfferApi) => ({
+  payload: value,
+}));
+
+export const setOfferNearby = createAction(Action.GET_OFFERNEARBY, (value: OfferApi[]) => ({
   payload: value,
 }));
 
