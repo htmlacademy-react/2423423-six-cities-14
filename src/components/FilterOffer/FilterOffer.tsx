@@ -1,11 +1,11 @@
-import { ICity } from '../../interfaces/ICity';
 import { useDispatch } from 'react-redux';
 import { changedFilter } from '../../store/action';
 import { useAppSelector } from '../../interfaces/IStore';
 import { useState } from 'react';
+import { OfferApi } from '../../types/offer';
 
 type ICityProps = {
-  isActiveCity: ICity;
+  isActiveCity: OfferApi;
 };
 interface ISettings {
   id: string;
@@ -30,14 +30,14 @@ function FilterOffer({ isActiveCity }: ICityProps) {
   //считаю количество предложений по заданному городу
   const fullOffers = useAppSelector((state) => state.offers);
   const arrayOffers = fullOffers.filter(
-    (item) => item.city.name === isActiveCity.name
+    (item) => item.city.name === isActiveCity.city.name
   );
 
   return (
     <>
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">
-        {arrayOffers.length} places to stay in {isActiveCity.name}
+        {arrayOffers.length} places to stay in {isActiveCity.city.name}
       </b>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>

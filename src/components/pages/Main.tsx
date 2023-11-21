@@ -1,5 +1,4 @@
 import List from '../List/List';
-import { city } from '../../mock/City';
 import Map from '../Map/Map';
 import { useState, } from 'react';
 import Header from '../Header/Header';
@@ -10,12 +9,12 @@ import { OfferApi } from '../../types/offer';
 import Spinner from '../Spinner/Spinner';
 
 export default function Main() {
-  //получить активный город и список его предложений
+  //получение активного города и списка всех предложений
   const activeCityName = useAppSelector((state) => state.city);
   const fullOffers = useAppSelector((state) => state.offers);
-  const cityData = city.find((item) => item.name === activeCityName);
-
-  //определяю данные предложений активного города для передачи в карту
+  //определение данных о городе, для передачи его точек в карту
+  const cityData = fullOffers.find((item) => item.city.name === activeCityName);
+  //определение данных предложений активного города для передачи в карту
   const findPlacesCityData = fullOffers.filter(
     (item) => item.city.name === activeCityName
   );
@@ -73,7 +72,7 @@ export default function Main() {
             <div className="cities__right-section">
               <section className="cities__map ">
                 <Map
-                  key={cityData.name}
+                  key={cityData.city.name}
                   city={cityData}
                   places={findPlacesCityData}
                   selectedPoint={selectedPoint}

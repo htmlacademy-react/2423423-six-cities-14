@@ -2,13 +2,12 @@ import leaflet from 'leaflet';
 import { useRef, useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
-import { ICity } from '../../interfaces/ICity';
 import { Marker, layerGroup } from 'leaflet';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/consts';
 import { OfferApi } from '../../types/offer';
 
 type TCityProps = {
-  city: ICity;
+  city: OfferApi;
   places: OfferApi[];
   selectedPoint: OfferApi | undefined;
 };
@@ -52,5 +51,5 @@ export default function Map(props: TCityProps): JSX.Element {
     }
   }, [map, city, places, selectedPoint]);
 
-  return <div style={{ height: '600px' }} ref={mapRef}></div>;
+  return <div style={{ height: '100vh' }} ref={mapRef}></div>;
 }
