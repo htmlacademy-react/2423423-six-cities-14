@@ -1,12 +1,13 @@
 import List from '../List/List';
 import { city } from '../../mock/City';
 import Map from '../Map/Map';
-import { useState } from 'react';
+import { useState, } from 'react';
 import Header from '../Header/Header';
 import Tabs from '../Tabs/Tabs';
 import FilterOffer from '../FilterOffer/FilterOffer';
 import { useAppSelector } from '../../interfaces/IStore';
 import { OfferApi } from '../../types/offer';
+import Spinner from '../Spinner/Spinner';
 
 export default function Main() {
   //получить активный город и список его предложений
@@ -50,7 +51,7 @@ export default function Main() {
   };
 
   if (!cityData || !sortingPlacesData) {
-    return false;
+    return <Spinner />;
   }
   return (
     <div className="page page--gray page--main">
