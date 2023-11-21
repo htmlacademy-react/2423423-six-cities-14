@@ -20,7 +20,7 @@ export default function Card({ place, onListItemHover }: TPlacesProps) {
       >
         {place.isPremium === true && (
           <div className="place-card__mark">
-            <span>{place.isPremium}</span>
+            <span>Premium</span>
           </div>
         )}
         <div className="cities__image-wrapper place-card__image-wrapper">

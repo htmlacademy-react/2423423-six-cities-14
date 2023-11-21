@@ -11,7 +11,7 @@ export type Extra = {
   extra: AxiosInstance;
 };
 
-export const fetchOffersAction = createAsyncThunk<OfferApi[], undefined, Extra>(
+export const fetchOffersAction = createAsyncThunk<void, undefined, Extra>(
   Action.GET_OFFERS,
   async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<OfferApi[]>(APIRoute.Offer);
