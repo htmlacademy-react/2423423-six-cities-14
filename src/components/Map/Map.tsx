@@ -1,4 +1,3 @@
-import { IPlaces } from '../../interfaces/IPlaces';
 import leaflet from 'leaflet';
 import { useRef, useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
@@ -6,11 +5,12 @@ import useMap from '../../hooks/useMap';
 import { ICity } from '../../interfaces/ICity';
 import { Marker, layerGroup } from 'leaflet';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/consts';
+import { OfferApi } from '../../types/offer';
 
 type TCityProps = {
   city: ICity;
-  places: IPlaces[];
-  selectedPoint: IPlaces | undefined;
+  places: OfferApi[];
+  selectedPoint: OfferApi | undefined;
 };
 
 const defaultCustomIcon = leaflet.icon({
@@ -35,12 +35,12 @@ export default function Map(props: TCityProps): JSX.Element {
 
       places.forEach((place) => {
         const marker = new Marker({
-          lat: place.lat,
-          lng: place.lng,
+          lat: place.location.latitude,
+          lng: place.location.longitude,
         });
         marker
           .setIcon(
-            selectedPoint !== undefined && place.name === selectedPoint.name
+            selectedPoint !== undefined && place.id === selectedPoint.id
               ? currentCustomIcon
               : defaultCustomIcon
           )

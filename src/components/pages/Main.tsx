@@ -1,4 +1,3 @@
-import { IPlaces } from '../../interfaces/IPlaces';
 import List from '../List/List';
 import { city } from '../../mock/City';
 import Map from '../Map/Map';
@@ -6,19 +5,23 @@ import { useState } from 'react';
 import Header from '../Header/Header';
 import Tabs from '../Tabs/Tabs';
 import FilterOffer from '../FilterOffer/FilterOffer';
-import { placesMock } from '../../mock/Places';
-
 import { useAppSelector } from '../../interfaces/IStore';
+import { OfferApi } from '../../types/offer';
 
-type TPlacesProps = {
-  places: IPlaces[];
-};
-
-export default function Main({ places }: TPlacesProps) {
+export default function Main() {
+  //получить активный город и список его предложений
   const activeCityName = useAppSelector((state) => state.city);
+  const fullOffers = useAppSelector((state) => state.offers);
+  const cityData = city.find((item) => item.name === activeCityName);
+
+  //определяю данные предложений активного города для передачи в карту
+  const findPlacesCityData = fullOffers.filter(
+    (item) => item.city.name === activeCityName
+  );
+
   //определение id сортировки и применение соответствующего фильтра
   const activeFilterCategory = useAppSelector((state) => state.filter.id);
-  const switchFilter = (itemA: IPlaces, itemB: IPlaces) => {
+  const switchFilter = (itemA: OfferApi, itemB: OfferApi) => {
     switch (activeFilterCategory) {
       case 'lth':
         return itemA.price - itemB.price;
@@ -33,24 +36,18 @@ export default function Main({ places }: TPlacesProps) {
         return 0;
     }
   };
-
-  const [selectedPoint, setSelectedPoint] = useState<IPlaces | undefined>(
-    undefined
-  );
+  const sortingPlacesData = findPlacesCityData.sort(switchFilter);
 
   //определение на какое предложение пользователь навел мышь
+  const [selectedPoint, setSelectedPoint] = useState<OfferApi | undefined>(
+    undefined
+  );
   const handleListItemHover = (listItemName: string | undefined) => {
-    const currentPoint = places.find((point) => point.name === listItemName);
+    const currentPoint = findPlacesCityData.find(
+      (point) => point.id === listItemName
+    );
     setSelectedPoint(currentPoint);
   };
-
-  //определяю данные активного города и данные его предложений для передачи в карту
-  const cityData = city.find((item) => item.name === activeCityName);
-
-  const findPlacesCityData = placesMock.filter(
-    (item) => item.location === activeCityName
-  );
-  const sortingPlacesData = findPlacesCityData.sort(switchFilter);
 
   if (!cityData || !sortingPlacesData) {
     return false;

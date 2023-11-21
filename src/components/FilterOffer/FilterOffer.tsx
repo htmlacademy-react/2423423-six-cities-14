@@ -1,5 +1,4 @@
 import { ICity } from '../../interfaces/ICity';
-import { placesMock } from '../../mock/Places';
 import { useDispatch } from 'react-redux';
 import { changedFilter } from '../../store/action';
 import { useAppSelector } from '../../interfaces/IStore';
@@ -27,10 +26,13 @@ function FilterOffer({ isActiveCity }: ICityProps) {
   const handleClick = (id: string, title: string) => {
     dispatch(changedFilter(id, title));
   };
-  // className="places__option places__option--active"
-  const arrayOffers = placesMock.filter(
-    (item) => item.location === isActiveCity.name
+
+  //считаю количество предложений по заданному городу
+  const fullOffers = useAppSelector((state) => state.offers);
+  const arrayOffers = fullOffers.filter(
+    (item) => item.city.name === isActiveCity.name
   );
+
   return (
     <>
       <h2 className="visually-hidden">Places</h2>

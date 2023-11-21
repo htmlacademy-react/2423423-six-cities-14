@@ -5,3 +5,7 @@ export enum AppRoute {
   Offer = '/offer/:id',
   NotFound = '/*',
 }
+
+export enum APIRoute {
+  Offer = '/offers',
+}

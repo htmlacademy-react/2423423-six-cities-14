@@ -5,7 +5,7 @@ export const city: ICity[] = [
     name: 'Paris',
     lat: 48.856663,
     lng: 2.351556,
-    zoom: 14,
+    zoom: 12,
   },
   {
     id: 2,
