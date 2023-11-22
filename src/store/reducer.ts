@@ -1,4 +1,4 @@
-import { PayloadAction, createReducer } from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import {
   changedCity,
   changedFilter,
@@ -38,7 +38,7 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(setOffer, (state, action: PayloadAction<OfferApi | null>) => {
+    .addCase(setOffer, (state, action) => {
       state.activeOffer = action.payload;
     })
     .addCase(setOfferNearby, (state, action) => {
