@@ -6,6 +6,7 @@ import { APIRoute } from '../consts/route';
 import {
   Action,
   authAction,
+  setComments,
   setError,
   setOffer,
   setOfferNearby,
@@ -16,6 +17,7 @@ import { AuthData, User, UserData } from '../types/user';
 import { addToken, deleteToken } from '../utils/token';
 import { AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../consts/consts';
 import { store } from '.';
+import { Comment } from '../types/comment';
 
 export type Extra = {
   dispatch: AppDispatch;
@@ -88,3 +90,11 @@ export const checkAuthAction = createAsyncThunk<void, undefined, Extra>(
 export const clearErrorAction = createAsyncThunk(Action.ERROR, () => {
   setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
 });
+
+export const fetchComments = createAsyncThunk<void, string | undefined, Extra>(
+  Action.REVIEWS,
+  async (id, { dispatch, extra: api}) => {
+    const {data} = await api.get<Comment[]>(`${APIRoute.Reviews}/${id}`);
+    dispatch(setComments(data));
+  },
+);

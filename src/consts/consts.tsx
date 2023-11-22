@@ -7,3 +7,4 @@ export const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 export const TIMEOUT_SHOW_ERROR = 2000;
+export const MAX_REVIEW_COUNT = 10;

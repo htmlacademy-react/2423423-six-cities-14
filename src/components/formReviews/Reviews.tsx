@@ -1,10 +1,9 @@
 import ListReviews from '../ListReviews/ListReviews';
-import { reviewsMock } from '../../mock/Reviews';
 
 export default function Reviews() {
   return (
     <section className="offer__reviews reviews">
-      <ListReviews reviewsMock={reviewsMock} />
+      <ListReviews />
 
       <form className="reviews__form form" action="#" method="post">
         <label className="reviews__label form__label" htmlFor="review">

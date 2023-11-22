@@ -3,6 +3,7 @@ import {
   authAction,
   changedCity,
   changedFilter,
+  setComments,
   setError,
   setOffer,
   setOfferNearby,
@@ -12,6 +13,7 @@ import {
 import { OfferApi } from '../types/offer';
 import { User } from '../types/user';
 import { AuthorizationStatus } from '../consts/consts';
+import { Comment } from '../types/comment';
 
 interface IInitialState {
   city: string;
@@ -25,6 +27,7 @@ interface IInitialState {
   userData: User | null;
   statusAuthorization: AuthorizationStatus;
   error: string | null;
+  reviews: Comment[];
 }
 
 const initialState: IInitialState = {
@@ -36,6 +39,7 @@ const initialState: IInitialState = {
   userData: null,
   statusAuthorization: AuthorizationStatus.NoAuth,
   error: null,
+  reviews: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -63,5 +67,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(setComments, (state, action) => {
+      state.reviews = action.payload;
     });
 });

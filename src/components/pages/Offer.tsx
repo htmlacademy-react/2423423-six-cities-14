@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Reviews from '../formReviews/Reviews';
 import Header from '../Header/Header';
@@ -9,9 +9,10 @@ import { OfferApi } from '../../types/offer';
 import { store } from '../../store';
 import { fetchOfferAction, fetchOffersNearby } from '../../store/api-actions';
 import Spinner from '../Spinner/Spinner';
+import { AppRoute } from '../../consts/route';
+// import { MAX_REVIEW_COUNT } from '../../consts/consts';
 
 export default function Offer() {
-
   const params = useParams();
   const offerId = params.id;
 
@@ -23,7 +24,10 @@ export default function Offer() {
   }, [offerId]);
   //получение активного города,получение текущего предложения по айди,получение предложений рядом
   const infoOffer = useAppSelector((state) => state.activeOffer);
-  const infoOfferNearby = (useAppSelector((state) => state.offerNearby)).slice(0,10);
+  const infoOfferNearby = useAppSelector((state) => state.offerNearby).slice(
+    0,
+    10
+  );
 
   // маркеры
   const [selectedPoint, setSelectedPoint] = useState<OfferApi | undefined>(
@@ -35,6 +39,10 @@ export default function Offer() {
     );
     setSelectedPoint(currentPoint);
   };
+
+  if (!offerId) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
 
   if (!infoOffer || !infoOfferNearby) {
     return <Spinner />;
