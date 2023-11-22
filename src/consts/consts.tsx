@@ -8,3 +8,10 @@ export const enum AuthorizationStatus {
 }
 export const TIMEOUT_SHOW_ERROR = 2000;
 export const MAX_REVIEW_COUNT = 10;
+export const RATING_NUMBERS = [
+  { id: 1, number: 5, title: 'perfect' },
+  { id: 2, number: 4, title: 'good' },
+  { id: 3, number: 3, title: 'not bad' },
+  { id: 4, number: 2, title: 'badly' },
+  { id: 5, number: 1, title: 'terribly' },
+];

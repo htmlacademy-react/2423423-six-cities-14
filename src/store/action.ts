@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { OfferApi } from '../types/offer';
 import { User } from '../types/user';
 import { AuthorizationStatus } from '../consts/consts';
-import { Comment } from '../types/comment';
+import { Comment, PostComment } from '../types/comment';
 export const Action = {
   CHANGE_CITY: 'CHANGE_CITY',
   FILTER_CITY: 'FILTER_CITY',
@@ -14,6 +14,7 @@ export const Action = {
   NOAUTH: 'user/logout',
   ERROR: 'data/error',
   REVIEWS: 'offer/comments',
+  POST_COMMENT: 'offer/add_comment'
 };
 
 export const changedCity = createAction(
@@ -63,5 +64,9 @@ export const setstatusAuth = createAction(
 export const setError = createAction<string | null>(Action.ERROR);
 
 export const setComments = createAction(Action.REVIEWS, (value: Comment[]) => ({
+  payload: value,
+}));
+
+export const addComment = createAction(Action.POST_COMMENT, (value: PostComment) => ({
   payload: value,
 }));

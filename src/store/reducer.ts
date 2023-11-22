@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
+  addComment,
   authAction,
   changedCity,
   changedFilter,
@@ -13,7 +14,7 @@ import {
 import { OfferApi } from '../types/offer';
 import { User } from '../types/user';
 import { AuthorizationStatus } from '../consts/consts';
-import { Comment } from '../types/comment';
+import { Comment, PostComment } from '../types/comment';
 
 interface IInitialState {
   city: string;
@@ -28,6 +29,7 @@ interface IInitialState {
   statusAuthorization: AuthorizationStatus;
   error: string | null;
   reviews: Comment[];
+  comment: PostComment | null;
 }
 
 const initialState: IInitialState = {
@@ -40,6 +42,7 @@ const initialState: IInitialState = {
   statusAuthorization: AuthorizationStatus.NoAuth,
   error: null,
   reviews: [],
+  comment: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -70,5 +73,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setComments, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(addComment, (state, action) => {
+      state.comment = action.payload;
     });
 });

@@ -5,6 +5,7 @@ import { OfferApi } from '../types/offer';
 import { APIRoute } from '../consts/route';
 import {
   Action,
+  addComment,
   authAction,
   setComments,
   setError,
@@ -17,7 +18,7 @@ import { AuthData, User, UserData } from '../types/user';
 import { addToken, deleteToken } from '../utils/token';
 import { AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../consts/consts';
 import { store } from '.';
-import { Comment } from '../types/comment';
+import { Comment, PostComment } from '../types/comment';
 
 export type Extra = {
   dispatch: AppDispatch;
@@ -93,8 +94,20 @@ export const clearErrorAction = createAsyncThunk(Action.ERROR, () => {
 
 export const fetchComments = createAsyncThunk<void, string | undefined, Extra>(
   Action.REVIEWS,
-  async (id, { dispatch, extra: api}) => {
-    const {data} = await api.get<Comment[]>(`${APIRoute.Reviews}/${id}`);
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.get<Comment[]>(`${APIRoute.Reviews}/${id}`);
     dispatch(setComments(data));
-  },
+  }
+);
+
+export const postComment = createAsyncThunk<void, PostComment, Extra>(
+  'user/postComment',
+  async ({ id, comment, rating }, { dispatch,extra: api }) => {
+    const { data } = await api.post<PostComment>(`${APIRoute.Reviews}/${id}`, {
+      comment,
+      rating,
+    });
+
+    dispatch(addComment(data));
+  }
 );
