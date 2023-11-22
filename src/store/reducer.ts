@@ -16,7 +16,7 @@ interface IInitialState {
   };
   offers: OfferApi[];
   activeOffer: OfferApi | null;
-  offerNearby: OfferApi[];
+  offerNearby: OfferApi[] ;
 }
 
 const initialState: IInitialState = {

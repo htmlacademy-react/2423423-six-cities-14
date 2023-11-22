@@ -18,7 +18,6 @@ export default function Main() {
   const findPlacesCityData = fullOffers.filter(
     (item) => item.city.name === activeCityName
   );
-
   //определение id сортировки и применение соответствующего фильтра
   const activeFilterCategory = useAppSelector((state) => state.filter.id);
   const switchFilter = (itemA: OfferApi, itemB: OfferApi) => {
@@ -37,7 +36,6 @@ export default function Main() {
     }
   };
   const sortingPlacesData = findPlacesCityData.sort(switchFilter);
-
   //определение на какое предложение пользователь навел мышь
   const [selectedPoint, setSelectedPoint] = useState<OfferApi | undefined>(
     undefined

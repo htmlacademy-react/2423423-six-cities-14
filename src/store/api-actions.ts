@@ -23,18 +23,17 @@ export const fetchOfferAction = createAsyncThunk<
   void,
   string | undefined,
   Extra
->(Action.GET_OFFERS, async (id, { dispatch, extra: api }) => {
+>(Action.GET_OFFER, async (id, { dispatch, extra: api }) => {
   const { data } = await api.get<OfferApi>(`${APIRoute.Offer}/${id}`);
   dispatch(setOffer(data));
 });
 
-export const fetchOffersNearby = createAsyncThunk<
-  void,
-  string | undefined,
-  Extra
->(Action.GET_OFFERNEARBY, async (id, { dispatch, extra: api }) => {
-  const { data } = await api.get<OfferApi[]>(
-    `${APIRoute.Offer}/${id}${APIRoute.Nearby}`
-  );
-  dispatch(setOfferNearby(data));
-});
+export const fetchOffersNearby = createAsyncThunk<void, string | undefined, Extra>(
+  Action.GET_OFFERNEARBY,
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.get<OfferApi[]>(
+      `${APIRoute.Offer}/${id}${APIRoute.Nearby}`
+    );
+    dispatch(setOfferNearby(data));
+  }
+);

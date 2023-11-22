@@ -22,7 +22,6 @@ export default function Offer() {
     }
   }, [offerId]);
   //получение активного города,получение текущего предложения по айди,получение предложений рядом
-  // const activeCityName = useAppSelector((state) => state.city);
   const infoOffer = useAppSelector((state) => state.activeOffer);
   const infoOfferNearby = (useAppSelector((state) => state.offerNearby)).slice(0,10);
 

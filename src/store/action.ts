@@ -3,9 +3,9 @@ import { OfferApi } from '../types/offer';
 export const Action = {
   CHANGE_CITY: 'CHANGE_CITY',
   FILTER_CITY:'FILTER_CITY',
-  GET_OFFERS:'data/fetchOffers',
-  GET_OFFER:'data/fetchOffer',
-  GET_OFFERNEARBY:'data/fetchOfferNearby',
+  GET_OFFERS:'data/offers',
+  GET_OFFER:'data/offer',
+  GET_OFFERNEARBY:'data/offerNearby',
 };
 
 
