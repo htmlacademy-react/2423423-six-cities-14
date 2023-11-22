@@ -1,8 +1,16 @@
-import { favoritesMock } from '../../mock/Favorites';
+import { store } from '../../store';
+import { fetchFavorites } from '../../store/api-actions';
+import { useAppSelector } from '../../types/store';
 import Header from '../Header/Header';
+import { useEffect } from 'react';
 
 export default function Favorites() {
-  const locations = ['Amsterdam', 'Cologne'];
+
+  useEffect(() => {
+    store.dispatch(fetchFavorites());
+  }, []);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+
   return (
     <div className="page">
       <Header />
@@ -12,31 +20,34 @@ export default function Favorites() {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {locations.map((item) => (
-                <div key={item}>
+              {favoriteOffers.map((item) => (
+                <div key={item.city.name}>
                   <li className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
                         <a className="locations__item-link" href="#">
-                          <span>{item}</span>
+                          <span>{item.city.name}</span>
                         </a>
                       </div>
                     </div>
                   </li>
                   <div className="favorites__places">
-                    {(favoritesMock.filter((elem) => elem.location === item)).map((favor) => (
+                    {favoriteOffers.map((favor) => (
                       <article
                         key={favor.id}
                         className="favorites__card place-card"
                       >
-                        <div className="place-card__mark">
-                          <span>{favor.mark}</span>
-                        </div>
+                        {favor.isPremium && (
+                          <div className="place-card__mark">
+                            <span>Premium</span>
+                          </div>
+                        )}
+
                         <div className="favorites__image-wrapper place-card__image-wrapper">
                           <a href="#">
                             <img
                               className="place-card__image"
-                              src={favor.imgUrl}
+                              src={favor.previewImage}
                               width="150"
                               height="110"
                               alt="Place image"
@@ -65,18 +76,20 @@ export default function Favorites() {
                                 <use xlinkHref="#icon-bookmark"></use>
                               </svg>
                               <span className="visually-hidden">
-                                {favor.isBookmarks}
+                                {favor.isFavorite === false
+                                  ? 'To bookmark'
+                                  : 'In bookmark'}
                               </span>
                             </button>
                           </div>
                           <div className="place-card__rating rating">
                             <div className="place-card__stars rating__stars">
-                              <span style={{ width: favor.rating}}></span>
+                              <span style={{ width: (favor.rating * 100) / 5 }}></span>
                               <span className="visually-hidden">Rating</span>
                             </div>
                           </div>
                           <h2 className="place-card__name">
-                            <a href="#">{favor.name}</a>
+                            <a href="#">{favor.title}</a>
                           </h2>
                           <p className="place-card__type">{favor.type}</p>
                         </div>

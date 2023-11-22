@@ -1,12 +1,13 @@
 import List from '../List/List';
 import Map from '../Map/Map';
-import { useState, } from 'react';
+import { useState } from 'react';
 import Header from '../Header/Header';
 import Tabs from '../Tabs/Tabs';
 import FilterOffer from '../FilterOffer/FilterOffer';
 import { useAppSelector } from '../../types/store';
 import { OfferApi } from '../../types/offer';
 import Spinner from '../Spinner/Spinner';
+import { MainEmpty } from './MainEmpty';
 
 export default function Main() {
   //получение активного города и списка всех предложений
@@ -62,10 +63,14 @@ export default function Main() {
             <section className="cities__places places">
               <FilterOffer isActiveCity={cityData} />
 
-              <List
-                places={sortingPlacesData}
-                onListItemHover={handleListItemHover}
-              />
+              {findPlacesCityData ? (
+                <List
+                  places={sortingPlacesData}
+                  onListItemHover={handleListItemHover}
+                />
+              ) : (
+                <MainEmpty />
+              )}
             </section>
             <div className="cities__right-section">
               <section className="cities__map ">

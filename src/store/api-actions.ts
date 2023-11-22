@@ -9,6 +9,7 @@ import {
   authAction,
   setComments,
   setError,
+  setFavoriteOffers,
   setOffer,
   setOfferNearby,
   setOffers,
@@ -102,12 +103,20 @@ export const fetchComments = createAsyncThunk<void, string | undefined, Extra>(
 
 export const postComment = createAsyncThunk<void, PostComment, Extra>(
   'user/postComment',
-  async ({ id, comment, rating }, { dispatch,extra: api }) => {
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
     const { data } = await api.post<PostComment>(`${APIRoute.Reviews}/${id}`, {
       comment,
       rating,
     });
 
     dispatch(addComment(data));
+  }
+);
+
+export const fetchFavorites = createAsyncThunk<void, undefined, Extra>(
+  Action.FAVORITES,
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.get<OfferApi[]>(`${APIRoute.Favorite}/${id}`);
+    dispatch(setFavoriteOffers(data));
   }
 );

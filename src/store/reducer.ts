@@ -6,6 +6,7 @@ import {
   changedFilter,
   setComments,
   setError,
+  setFavoriteOffers,
   setOffer,
   setOfferNearby,
   setOffers,
@@ -30,6 +31,7 @@ interface IInitialState {
   error: string | null;
   reviews: Comment[];
   comment: PostComment | null;
+  favoriteOffers: OfferApi[];
 }
 
 const initialState: IInitialState = {
@@ -43,6 +45,7 @@ const initialState: IInitialState = {
   error: null,
   reviews: [],
   comment: null,
+  favoriteOffers: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -76,5 +79,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(addComment, (state, action) => {
       state.comment = action.payload;
+    })
+    .addCase(setFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
     });
 });
