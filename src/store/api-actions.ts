@@ -6,6 +6,7 @@ import { APIRoute } from '../consts/route';
 import {
   Action,
   authAction,
+  setError,
   setOffer,
   setOfferNearby,
   setOffers,
@@ -13,7 +14,8 @@ import {
 } from './action';
 import { AuthData, User, UserData } from '../types/user';
 import { addToken, deleteToken } from '../utils/token';
-import { AuthorizationStatus } from '../consts/consts';
+import { AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../consts/consts';
+import { store } from '.';
 
 export type Extra = {
   dispatch: AppDispatch;
@@ -82,3 +84,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, Extra>(
     }
   }
 );
+
+export const clearErrorAction = createAsyncThunk(Action.ERROR, () => {
+  setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
+});

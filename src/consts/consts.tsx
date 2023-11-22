@@ -6,3 +6,4 @@ export const enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+export const TIMEOUT_SHOW_ERROR = 2000;
