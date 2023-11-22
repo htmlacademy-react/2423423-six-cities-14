@@ -3,6 +3,7 @@ import {
   authAction,
   changedCity,
   changedFilter,
+  setError,
   setOffer,
   setOfferNearby,
   setOffers,
@@ -23,6 +24,7 @@ interface IInitialState {
   offerNearby: OfferApi[];
   userData: User | null;
   statusAuthorization: AuthorizationStatus;
+  error: string | null;
 }
 
 const initialState: IInitialState = {
@@ -33,6 +35,7 @@ const initialState: IInitialState = {
   offerNearby: [],
   userData: null,
   statusAuthorization: AuthorizationStatus.NoAuth,
+  error: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -57,5 +60,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setstatusAuth, (state, action) => {
       state.statusAuthorization = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });

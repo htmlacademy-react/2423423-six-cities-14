@@ -10,7 +10,8 @@ export const Action = {
   GET_OFFERNEARBY:'data/offerNearby',
   AUTH:'user/login',
   CHECK_AUTH: 'user/checkAuth',
-  NOAUTH: 'user/logout'
+  NOAUTH: 'user/logout',
+  ERROR: 'data/error'
 };
 
 
@@ -39,12 +40,8 @@ export const authAction = createAction(Action.AUTH, (value: User) => ({
   payload: value,
 }));
 
-// export const noauthAction = createAction(Action.NOAUTH, (value: AuthorizationStatus) => ({
-//   payload: value,
-// }));
-
 export const setstatusAuth = createAction(Action.CHECK_AUTH, (value: AuthorizationStatus) => ({
   payload: value,
 }));
 
-
+export const setError = createAction<string | null>(Action.ERROR);
