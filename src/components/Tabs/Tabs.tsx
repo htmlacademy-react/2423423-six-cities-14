@@ -1,7 +1,7 @@
 import { city } from '../../mock/City';
 import { useDispatch } from 'react-redux';
 import { changedCity } from '../../store/action';
-import { useAppSelector } from '../../interfaces/IStore';
+import { useAppSelector } from '../../types/store';
 import { Link } from 'react-router-dom';
 function Tabs() {
   const activeCityName = useAppSelector((state) => state.city);

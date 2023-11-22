@@ -1,8 +1,9 @@
-import { IPlaces } from '../../interfaces/IPlaces';
+import { OfferApi } from '../../types/offer';
 import Card from '../card/Card';
 
+
 type TPlacesProps = {
-  places: IPlaces[];
+  places: OfferApi[];
   onListItemHover: (listItemName: string | undefined) => void;
 };
 

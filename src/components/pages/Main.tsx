@@ -1,24 +1,26 @@
-import { IPlaces } from '../../interfaces/IPlaces';
 import List from '../List/List';
-import { city } from '../../mock/City';
 import Map from '../Map/Map';
-import { useState } from 'react';
+import { useState, } from 'react';
 import Header from '../Header/Header';
 import Tabs from '../Tabs/Tabs';
 import FilterOffer from '../FilterOffer/FilterOffer';
-import { placesMock } from '../../mock/Places';
+import { useAppSelector } from '../../types/store';
+import { OfferApi } from '../../types/offer';
+import Spinner from '../Spinner/Spinner';
 
-import { useAppSelector } from '../../interfaces/IStore';
-
-type TPlacesProps = {
-  places: IPlaces[];
-};
-
-export default function Main({ places }: TPlacesProps) {
+export default function Main() {
+  //получение активного города и списка всех предложений
   const activeCityName = useAppSelector((state) => state.city);
+  const fullOffers = useAppSelector((state) => state.offers);
+  //определение данных о городе, для передачи его точек в карту
+  const cityData = fullOffers.find((item) => item.city.name === activeCityName);
+  //определение данных предложений активного города для передачи в карту
+  const findPlacesCityData = fullOffers.filter(
+    (item) => item.city.name === activeCityName
+  );
   //определение id сортировки и применение соответствующего фильтра
   const activeFilterCategory = useAppSelector((state) => state.filter.id);
-  const switchFilter = (itemA: IPlaces, itemB: IPlaces) => {
+  const switchFilter = (itemA: OfferApi, itemB: OfferApi) => {
     switch (activeFilterCategory) {
       case 'lth':
         return itemA.price - itemB.price;
@@ -33,27 +35,20 @@ export default function Main({ places }: TPlacesProps) {
         return 0;
     }
   };
-
-  const [selectedPoint, setSelectedPoint] = useState<IPlaces | undefined>(
+  const sortingPlacesData = findPlacesCityData.sort(switchFilter);
+  //определение на какое предложение пользователь навел мышь
+  const [selectedPoint, setSelectedPoint] = useState<OfferApi | undefined>(
     undefined
   );
-
-  //определение на какое предложение пользователь навел мышь
   const handleListItemHover = (listItemName: string | undefined) => {
-    const currentPoint = places.find((point) => point.name === listItemName);
+    const currentPoint = findPlacesCityData.find(
+      (point) => point.id === listItemName
+    );
     setSelectedPoint(currentPoint);
   };
 
-  //определяю данные активного города и данные его предложений для передачи в карту
-  const cityData = city.find((item) => item.name === activeCityName);
-
-  const findPlacesCityData = placesMock.filter(
-    (item) => item.location === activeCityName
-  );
-  const sortingPlacesData = findPlacesCityData.sort(switchFilter);
-
   if (!cityData || !sortingPlacesData) {
-    return false;
+    return <Spinner />;
   }
   return (
     <div className="page page--gray page--main">
@@ -75,7 +70,7 @@ export default function Main({ places }: TPlacesProps) {
             <div className="cities__right-section">
               <section className="cities__map ">
                 <Map
-                  key={cityData.name}
+                  key={cityData.city.name}
                   city={cityData}
                   places={findPlacesCityData}
                   selectedPoint={selectedPoint}

@@ -1,15 +1,12 @@
-import { IPlaces } from '../../interfaces/IPlaces';
 import { Link } from 'react-router-dom';
+import { OfferApi } from '../../types/offer';
 
 type TPlacesProps = {
-  place: IPlaces;
+  place: OfferApi;
   onListItemHover: (listItemName: string | undefined) => void;
 };
 
-export default function Card({
-  place,
-  onListItemHover,
-}: TPlacesProps) {
+export default function Card({ place, onListItemHover }: TPlacesProps) {
   const handleListItemHover = (name: string | undefined) => {
     onListItemHover(name);
   };
@@ -18,18 +15,18 @@ export default function Card({
     <Link to={`/offer/${place.id}`}>
       <article
         className="cities__card place-card"
-        onMouseOver={() => handleListItemHover(place.name)}
+        onMouseOver={() => handleListItemHover(place.id)}
         onMouseOut={() => handleListItemHover(undefined)}
       >
-        {place.mark && (
+        {place.isPremium === true && (
           <div className="place-card__mark">
-            <span>{place.mark}</span>
+            <span>Premium</span>
           </div>
         )}
         <div className="cities__image-wrapper place-card__image-wrapper">
           <img
             className="place-card__image"
-            src={place.imgUrl}
+            src={place.previewImage}
             width="260"
             height="200"
             alt="Place image"
@@ -49,17 +46,17 @@ export default function Card({
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
               <span className="visually-hidden">
-                {place.isBookmarks === false ? 'To bookmark' : 'In bookmark'}
+                {place.isFavorite === false ? 'To bookmark' : 'In bookmark'}
               </span>
             </button>
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: place.rating }}></span>
+              <span style={{ width: (place.rating * 100) / 5 }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <h2 className="place-card__name">{place.name}</h2>
+          <h2 className="place-card__name">{place.title}</h2>
           <p className="place-card__type">{place.type}</p>
         </div>
       </article>

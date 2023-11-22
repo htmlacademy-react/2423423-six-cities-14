@@ -1,20 +1,21 @@
 import { Navigate } from 'react-router-dom';
 import { AuthorizationStatus } from '../../consts/consts';
-import { useAppSelector } from '../../types/store';
 import { AppRoute } from '../../consts/route';
+import { useAppSelector } from '../../types/store';
 
-type PrivateRouteProps = {
+type RedirectToMainRouteProps = {
   children: JSX.Element;
 };
 
-export default function PrivateRoute(props: PrivateRouteProps) {
+function RedirectToMain({ children }: RedirectToMainRouteProps) {
   const authorizationStatus = useAppSelector(
     (state) => state.statusAuthorization
   );
-  const { children } = props;
   return authorizationStatus === AuthorizationStatus.Auth ? (
-    children
+    <Navigate to={AppRoute.Root} />
   ) : (
-    <Navigate to={AppRoute.Login} />
+    children
   );
 }
+
+export default RedirectToMain;

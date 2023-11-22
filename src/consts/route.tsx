@@ -5,3 +5,12 @@ export enum AppRoute {
   Offer = '/offer/:id',
   NotFound = '/*',
 }
+
+export enum APIRoute {
+  Offer = '/offers',
+  Nearby = '/nearby',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}

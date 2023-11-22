@@ -2,25 +2,42 @@ import Login from './components/pages/Login';
 import Main from './components/pages/Main';
 import NotFound from './components/pages/NotFound';
 import Offer from './components/pages/Offer';
-import { IPlaces } from './interfaces/IPlaces';
-import { placesMock } from './mock/Places';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
 import PrivateRoute from './components/pages/PrivateRoute';
 import './styles/styles.css';
 import { AppRoute } from './consts/route';
+import { useAppSelector } from './types/store';
+import { AuthorizationStatus } from './consts/consts';
+import Spinner from './components/Spinner/Spinner';
+import RedirectToMain from './components/pages/RedirectToMain';
+import Favorites from './components/pages/Favorites';
 
 export default function App() {
-  const places: IPlaces[] = placesMock;
-  const [isAuthorized, setIsAuthorized] = useState(true);
+  const authorizationStatus = useAppSelector(
+    (state) => state.statusAuthorization
+  );
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
+    return <Spinner />;
+  }
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<Main places={places} />} />
-        <Route path={AppRoute.Login} element={<Login />} />
+        <Route path={AppRoute.Root} element={<Main />} />
+        <Route
+          path={AppRoute.Login}
+          element={
+            <RedirectToMain>
+              <Login />
+            </RedirectToMain>
+          }
+        />
         <Route
           path={AppRoute.Favorites}
-          element={<PrivateRoute isAuthorized={isAuthorized} />}
+          element={
+            <PrivateRoute>
+              <Favorites />
+            </PrivateRoute>
+          }
         />
         <Route path={AppRoute.Offer} element={<Offer />} />
         <Route path={AppRoute.NotFound} element={<NotFound />} />
