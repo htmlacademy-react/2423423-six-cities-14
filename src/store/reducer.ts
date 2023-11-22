@@ -1,12 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
+  authAction,
   changedCity,
   changedFilter,
   setOffer,
   setOfferNearby,
   setOffers,
+  setstatusAuth,
 } from './action';
 import { OfferApi } from '../types/offer';
+import { User } from '../types/user';
+import { AuthorizationStatus } from '../consts/consts';
 
 interface IInitialState {
   city: string;
@@ -16,7 +20,9 @@ interface IInitialState {
   };
   offers: OfferApi[];
   activeOffer: OfferApi | null;
-  offerNearby: OfferApi[] ;
+  offerNearby: OfferApi[];
+  userData: User | null;
+  statusAuthorization: AuthorizationStatus;
 }
 
 const initialState: IInitialState = {
@@ -25,6 +31,8 @@ const initialState: IInitialState = {
   offers: [],
   activeOffer: null,
   offerNearby: [],
+  userData: null,
+  statusAuthorization: AuthorizationStatus.NoAuth,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -43,5 +51,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOfferNearby, (state, action) => {
       state.offerNearby = action.payload;
+    })
+    .addCase(authAction, (state, action) => {
+      state.userData = action.payload;
+    })
+    .addCase(setstatusAuth, (state, action) => {
+      state.statusAuthorization = action.payload;
     });
 });

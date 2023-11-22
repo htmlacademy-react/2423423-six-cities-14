@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { changedFilter } from '../../store/action';
-import { useAppSelector } from '../../interfaces/IStore';
+import { useAppSelector } from '../../types/store';
 import { useState } from 'react';
 import { OfferApi } from '../../types/offer';
 

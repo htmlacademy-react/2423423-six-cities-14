@@ -4,7 +4,7 @@ import Reviews from '../formReviews/Reviews';
 import Header from '../Header/Header';
 import Map from '../Map/Map';
 import List from '../List/List';
-import { useAppSelector } from '../../interfaces/IStore';
+import { useAppSelector } from '../../types/store';
 import { OfferApi } from '../../types/offer';
 import { store } from '../../store';
 import { fetchOfferAction, fetchOffersNearby } from '../../store/api-actions';

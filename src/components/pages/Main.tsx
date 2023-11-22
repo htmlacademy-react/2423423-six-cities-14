@@ -4,7 +4,7 @@ import { useState, } from 'react';
 import Header from '../Header/Header';
 import Tabs from '../Tabs/Tabs';
 import FilterOffer from '../FilterOffer/FilterOffer';
-import { useAppSelector } from '../../interfaces/IStore';
+import { useAppSelector } from '../../types/store';
 import { OfferApi } from '../../types/offer';
 import Spinner from '../Spinner/Spinner';
 
