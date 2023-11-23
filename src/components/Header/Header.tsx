@@ -6,6 +6,7 @@ import { AuthorizationStatus } from '../../consts/consts';
 
 function Header() {
   const userInfo = useAppSelector((state) => state.userData);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
   const authorizationStatus = useAppSelector(
     (state) => state.statusAuthorization
   );
@@ -52,7 +53,7 @@ function Header() {
                       <span className="header__user-name user__name">
                         {userInfo?.name}
                       </span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favoriteOffers.length}</span>
                     </>
                   )}
                 </Link>
