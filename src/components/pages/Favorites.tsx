@@ -1,15 +1,21 @@
+import {useEffect} from 'react';
 import { store } from '../../store';
-import { fetchFavorites } from '../../store/api-actions';
 import { useAppSelector } from '../../types/store';
 import Header from '../Header/Header';
-import { useEffect } from 'react';
+import FavoritesEmpty from './FavoritesEmpty';
+import { fetchFavorites } from '../../store/api-actions';
 
 export default function Favorites() {
-
   useEffect(() => {
     store.dispatch(fetchFavorites());
   }, []);
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const offersFull = useAppSelector((state) => state.offers);
+  const favoriteOffers = offersFull.filter(
+    (offer) => offer.isFavorite === true
+  );
+  // const favoriteOffers = offersFull
+  //   .filter((offer) => offer.isFavorite);
+  // .sort((a, b) => b.city.name.localeCompare(a.city.name));
 
   return (
     <div className="page">
@@ -17,27 +23,28 @@ export default function Favorites() {
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {favoriteOffers.map((item) => (
-                <div key={item.city.name}>
-                  <li className="favorites__locations-items">
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <a className="locations__item-link" href="#">
-                          <span>{item.city.name}</span>
-                        </a>
+          {favoriteOffers.length ? (
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
+                {favoriteOffers.map((item) => (
+                  <div key={item.city.name}>
+                    <li className="favorites__locations-items">
+                      <div className="favorites__locations locations locations--current">
+                        <div className="locations__item">
+                          <a className="locations__item-link" href="#">
+                            <span>{item.city.name}</span>
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                  <div className="favorites__places">
-                    {favoriteOffers.map((favor) => (
+                    </li>
+
+                    <div className="favorites__places">
                       <article
-                        key={favor.id}
+                        key={item.id}
                         className="favorites__card place-card"
                       >
-                        {favor.isPremium && (
+                        {item.isPremium && (
                           <div className="place-card__mark">
                             <span>Premium</span>
                           </div>
@@ -47,7 +54,7 @@ export default function Favorites() {
                           <a href="#">
                             <img
                               className="place-card__image"
-                              src={favor.previewImage}
+                              src={item.previewImage}
                               width="150"
                               height="110"
                               alt="Place image"
@@ -58,7 +65,7 @@ export default function Favorites() {
                           <div className="place-card__price-wrapper">
                             <div className="place-card__price">
                               <b className="place-card__price-value">
-                                &euro;{favor.price}
+                                &euro;{item.price}
                               </b>
                               <span className="place-card__price-text">
                                 &#47;&nbsp;night
@@ -76,7 +83,7 @@ export default function Favorites() {
                                 <use xlinkHref="#icon-bookmark"></use>
                               </svg>
                               <span className="visually-hidden">
-                                {favor.isFavorite === false
+                                {item.isFavorite === false
                                   ? 'To bookmark'
                                   : 'In bookmark'}
                               </span>
@@ -84,22 +91,24 @@ export default function Favorites() {
                           </div>
                           <div className="place-card__rating rating">
                             <div className="place-card__stars rating__stars">
-                              <span style={{ width: (favor.rating * 100) / 5 }}></span>
+                              <span style={{ width: (item.rating * 100) / 5 }}></span>
                               <span className="visually-hidden">Rating</span>
                             </div>
                           </div>
                           <h2 className="place-card__name">
-                            <a href="#">{favor.title}</a>
+                            <a href="#">{item.title}</a>
                           </h2>
-                          <p className="place-card__type">{favor.type}</p>
+                          <p className="place-card__type">{item.type}</p>
                         </div>
                       </article>
-                    ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </ul>
-          </section>
+                ))}
+              </ul>
+            </section>
+          ) : (
+            <FavoritesEmpty />
+          )}
         </div>
       </main>
       <footer className="footer container">

@@ -11,6 +11,7 @@ import {
   setOfferNearby,
   setOffers,
   setstatusAuth,
+  toggleFavoriteOffer,
 } from './action';
 import { OfferApi } from '../types/offer';
 import { User } from '../types/user';
@@ -32,6 +33,7 @@ interface IInitialState {
   reviews: Comment[];
   comment: PostComment | null;
   favoriteOffers: OfferApi[];
+  toogleFavor: OfferApi | null;
 }
 
 const initialState: IInitialState = {
@@ -46,6 +48,7 @@ const initialState: IInitialState = {
   reviews: [],
   comment: null,
   favoriteOffers: [],
+  toogleFavor: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -82,5 +85,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFavoriteOffers, (state, action) => {
       state.favoriteOffers = action.payload;
+    })
+    .addCase(toggleFavoriteOffer, (state, action) => {
+      state.toogleFavor = action.payload;
     });
 });

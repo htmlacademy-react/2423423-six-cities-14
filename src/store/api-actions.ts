@@ -14,6 +14,7 @@ import {
   setOfferNearby,
   setOffers,
   setstatusAuth,
+  toggleFavoriteOffer,
 } from './action';
 import { AuthData, User, UserData } from '../types/user';
 import { addToken, deleteToken } from '../utils/token';
@@ -115,8 +116,18 @@ export const postComment = createAsyncThunk<void, PostComment, Extra>(
 
 export const fetchFavorites = createAsyncThunk<void, undefined, Extra>(
   Action.FAVORITES,
-  async (id, { dispatch, extra: api }) => {
-    const { data } = await api.get<OfferApi[]>(`${APIRoute.Favorite}/${id}`);
+  async (_arg, { dispatch, extra: api }) => {
+    const { data } = await api.get<OfferApi[]>(APIRoute.Favorite);
     dispatch(setFavoriteOffers(data));
+  }
+);
+
+export const toogleFavorites = createAsyncThunk<void, OfferApi, Extra>(
+  Action.TOGGLE_FAVOR,
+  async ({id, isFavorite}, { dispatch, extra: api }) => {
+    const { data } = await api.post<OfferApi>(`${APIRoute.Favorite}/${id}`, {
+      isFavorite,
+    });
+    dispatch(toggleFavoriteOffer(data));
   }
 );

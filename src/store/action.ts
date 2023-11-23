@@ -16,6 +16,7 @@ export const Action = {
   REVIEWS: 'offer/comments',
   POST_COMMENT: 'offer/add_comment',
   FAVORITES: 'user/favorites',
+  TOGGLE_FAVOR: 'user/toggleFavor'
 };
 
 export const changedCity = createAction(
@@ -75,6 +76,13 @@ export const addComment = createAction(Action.POST_COMMENT, (value: PostComment)
 export const setFavoriteOffers = createAction(
   Action.FAVORITES,
   (value: OfferApi[]) => ({
+    payload: value,
+  })
+);
+
+export const toggleFavoriteOffer = createAction(
+  Action.TOGGLE_FAVOR,
+  (value: OfferApi) => ({
     payload: value,
   })
 );
