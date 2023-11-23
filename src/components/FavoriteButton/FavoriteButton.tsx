@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../types/store';
 import { useState } from 'react';
 import { OfferApi } from '../../types/offer';
@@ -12,8 +12,8 @@ type TPlacesProps = {
 };
 
 function FavoriteButton({ place }: TPlacesProps) {
-  const params = useParams();
-  const offerId = params.id;
+
+  const offerId = place.id;
   const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector(
@@ -31,7 +31,7 @@ function FavoriteButton({ place }: TPlacesProps) {
       navigate(AppRoute.Login);
     }
     setIsFavoriteCard(!isFavoriteCard);
-    const status = isFavoriteCard === false ? 0 : 1;
+    const status = isFavoriteCard === false ? 1 : 0;
     const favoriteData = {
       offerId,
       status,
