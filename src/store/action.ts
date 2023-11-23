@@ -3,6 +3,7 @@ import { OfferApi } from '../types/offer';
 import { User } from '../types/user';
 import { AuthorizationStatus } from '../consts/consts';
 import { Comment, PostComment } from '../types/comment';
+import { ToggleFavoriteOffer } from '../types/favorite';
 export const Action = {
   CHANGE_CITY: 'CHANGE_CITY',
   FILTER_CITY: 'FILTER_CITY',
@@ -82,7 +83,7 @@ export const setFavoriteOffers = createAction(
 
 export const toggleFavoriteOffer = createAction(
   Action.TOGGLE_FAVOR,
-  (value: OfferApi) => ({
+  (value: ToggleFavoriteOffer) => ({
     payload: value,
   })
 );

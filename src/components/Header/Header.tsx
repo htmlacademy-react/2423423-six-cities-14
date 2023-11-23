@@ -38,7 +38,7 @@ function Header() {
                   to={AppRoute.Favorites}
                   className="header__nav-link header__nav-link--profile"
                 >
-                  {userInfo && authorizationStatus === AuthorizationStatus.Auth && (
+                  {authorizationStatus === AuthorizationStatus.Auth && (
                     <>
                       <div
                         className="header__avatar-wrapper user__avatar-wrapper"
@@ -58,21 +58,20 @@ function Header() {
                 </Link>
               </li>
               <li className="header__nav-item">
-                {userInfo &&
-                authorizationStatus === AuthorizationStatus.Auth ? (
-                    <Link to={AppRoute.Root} className="header__nav-link">
-                      <span
-                        className="header__signout"
-                        onClick={() => handleClick()}
-                      >
-                        Sign out
-                      </span>
-                    </Link>
-                  ) : (
-                    <Link to={AppRoute.Login} className="header__nav-link">
-                      <span className="header__signout">Sign in</span>
-                    </Link>
-                  )}
+                {authorizationStatus === AuthorizationStatus.Auth ? (
+                  <Link to={AppRoute.Root} className="header__nav-link">
+                    <span
+                      className="header__signout"
+                      onClick={() => handleClick()}
+                    >
+                      Sign out
+                    </span>
+                  </Link>
+                ) : (
+                  <Link to={AppRoute.Login} className="header__nav-link">
+                    <span className="header__signout">Sign in</span>
+                  </Link>
+                )}
               </li>
             </ul>
           </nav>

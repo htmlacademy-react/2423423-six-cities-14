@@ -21,6 +21,7 @@ import { addToken, deleteToken } from '../utils/token';
 import { AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../consts/consts';
 import { store } from '.';
 import { Comment, PostComment } from '../types/comment';
+import { ToggleFavoriteOffer } from '../types/favorite';
 
 export type Extra = {
   dispatch: AppDispatch;
@@ -103,7 +104,7 @@ export const fetchComments = createAsyncThunk<void, string | undefined, Extra>(
 );
 
 export const postComment = createAsyncThunk<void, PostComment, Extra>(
-  'user/postComment',
+  Action.POST_COMMENT,
   async ({ id, comment, rating }, { dispatch, extra: api }) => {
     const { data } = await api.post<PostComment>(`${APIRoute.Reviews}/${id}`, {
       comment,
@@ -122,11 +123,12 @@ export const fetchFavorites = createAsyncThunk<void, undefined, Extra>(
   }
 );
 
-export const toogleFavorites = createAsyncThunk<void, OfferApi, Extra>(
+export const toogleFavorites = createAsyncThunk<void, ToggleFavoriteOffer, Extra>(
   Action.TOGGLE_FAVOR,
-  async ({id, isFavorite}, { dispatch, extra: api }) => {
-    const { data } = await api.post<OfferApi>(`${APIRoute.Favorite}/${id}`, {
-      isFavorite,
+  async ({offerId, status}, { dispatch, extra: api }) => {
+    const { data } = await api.post<ToggleFavoriteOffer>(APIRoute.Favorite, {
+      offerId,
+      status,
     });
     dispatch(toggleFavoriteOffer(data));
   }

@@ -1,9 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { OfferApi } from '../../types/offer';
-import { AuthorizationStatus } from '../../consts/consts';
-import { useAppSelector } from '../../types/store';
-import { AppRoute } from '../../consts/route';
-import { useState } from 'react';
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
 
 type TPlacesProps = {
   place: OfferApi;
@@ -11,33 +8,9 @@ type TPlacesProps = {
 };
 
 export default function Card({ place, onListItemHover }: TPlacesProps) {
-  const authorizationStatus = useAppSelector(
-    (state) => state.statusAuthorization
-  );
-
-  const navigate = useNavigate();
-  const [isFavoriteCard, setIsFavoriteCard] = useState(place.isFavorite);
-
   const handleListItemHover = (name: string | undefined) => {
     onListItemHover(name);
   };
-
-  const toogleFavorites = () => {
-    if (
-      authorizationStatus === AuthorizationStatus.Unknown ||
-      authorizationStatus === AuthorizationStatus.NoAuth
-    ) {
-      navigate(AppRoute.Login);
-    }
-    setIsFavoriteCard(!isFavoriteCard);
-    // const isFavorite = isFavoriteCard === false ? 0 : 1;
-    // const favoriteData = {
-    //   id,
-    //   isFavorite,
-    // };
-    // dispatch(toogleFavorites(favoriteData));
-  };
-
 
   return (
     <article
@@ -67,14 +40,7 @@ export default function Card({ place, onListItemHover }: TPlacesProps) {
             <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button" onClick={toogleFavorites}>
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden" >
-              {place.isFavorite === false ? 'To bookmark' : 'In bookmark'}
-            </span>
-          </button>
+          <FavoriteButton place={place}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
