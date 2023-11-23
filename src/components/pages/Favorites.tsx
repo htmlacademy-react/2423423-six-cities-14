@@ -6,16 +6,13 @@ import FavoritesEmpty from './FavoritesEmpty';
 import { fetchFavorites } from '../../store/api-actions';
 import { LOCATIONS_NAME } from '../../consts/consts';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
+import { NavLink } from 'react-router-dom';
 
 export default function Favorites() {
   useEffect(() => {
     store.dispatch(fetchFavorites());
   }, []);
   const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
-  // const filterFavorOffers = favoriteOffers.sort((a, b) => b.city.name.localeCompare(a.city.name));
-
-  // const filteredOffer = favoriteOffers.some((cityNameOffer) => LOCATIONS_NAME.includes(cityNameOffer.city.name))
-  // const filteredOffer = favoriteOffers.filter((item) => LOCATIONS_NAME.includes(item.city.name));
   const filterLocation = LOCATIONS_NAME.filter((location) => favoriteOffers.map((item) => item.city.name).includes(location));
   return (
     <div className="page">
@@ -32,9 +29,9 @@ export default function Favorites() {
                     <li className="favorites__locations-items">
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
-                          <a className="locations__item-link" href="#">
+                          <NavLink to={`/${locationName}`} className="locations__item-link">
                             <span>{locationName}</span>
-                          </a>
+                          </NavLink>
                         </div>
                       </div>
                     </li>
