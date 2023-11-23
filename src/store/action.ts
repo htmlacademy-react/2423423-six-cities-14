@@ -14,7 +14,9 @@ export const Action = {
   NOAUTH: 'user/logout',
   ERROR: 'data/error',
   REVIEWS: 'offer/comments',
-  POST_COMMENT: 'offer/add_comment'
+  POST_COMMENT: 'offer/add_comment',
+  FAVORITES: 'user/favorites',
+  TOGGLE_FAVOR: 'user/toggleFavor'
 };
 
 export const changedCity = createAction(
@@ -70,3 +72,17 @@ export const setComments = createAction(Action.REVIEWS, (value: Comment[]) => ({
 export const addComment = createAction(Action.POST_COMMENT, (value: PostComment) => ({
   payload: value,
 }));
+
+export const setFavoriteOffers = createAction(
+  Action.FAVORITES,
+  (value: OfferApi[]) => ({
+    payload: value,
+  })
+);
+
+export const toggleFavoriteOffer = createAction(
+  Action.TOGGLE_FAVOR,
+  (value: OfferApi) => ({
+    payload: value,
+  })
+);

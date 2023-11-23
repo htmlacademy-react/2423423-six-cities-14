@@ -1,8 +1,8 @@
-import { city } from '../../mock/City';
 import { useDispatch } from 'react-redux';
 import { changedCity } from '../../store/action';
 import { useAppSelector } from '../../types/store';
 import { Link } from 'react-router-dom';
+import { LOCATIONS_NAME } from '../../consts/consts';
 function Tabs() {
   const activeCityName = useAppSelector((state) => state.city);
   const dispatch = useDispatch();
@@ -15,19 +15,19 @@ function Tabs() {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {city.map((item) => (
+            {LOCATIONS_NAME.map((item) => (
               <li
                 className="locations__item"
-                key={item.name}
-                onClick={() => handleClick(item.name)}
+                key={item}
+                onClick={() => handleClick(item)}
               >
                 <Link
                   to="#"
                   className={`locations__item-link tabs__item  ${
-                    activeCityName === item.name && 'tabs__item--active'
+                    activeCityName === item && 'tabs__item--active'
                   }`}
                 >
-                  <span>{item.name}</span>
+                  <span>{item}</span>
                 </Link>
               </li>
             ))}

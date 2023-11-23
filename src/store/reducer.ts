@@ -6,10 +6,12 @@ import {
   changedFilter,
   setComments,
   setError,
+  setFavoriteOffers,
   setOffer,
   setOfferNearby,
   setOffers,
   setstatusAuth,
+  toggleFavoriteOffer,
 } from './action';
 import { OfferApi } from '../types/offer';
 import { User } from '../types/user';
@@ -30,6 +32,8 @@ interface IInitialState {
   error: string | null;
   reviews: Comment[];
   comment: PostComment | null;
+  favoriteOffers: OfferApi[];
+  toogleFavor: OfferApi | null;
 }
 
 const initialState: IInitialState = {
@@ -43,6 +47,8 @@ const initialState: IInitialState = {
   error: null,
   reviews: [],
   comment: null,
+  favoriteOffers: [],
+  toogleFavor: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -76,5 +82,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(addComment, (state, action) => {
       state.comment = action.payload;
+    })
+    .addCase(setFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
+    })
+    .addCase(toggleFavoriteOffer, (state, action) => {
+      state.toogleFavor = action.payload;
     });
 });

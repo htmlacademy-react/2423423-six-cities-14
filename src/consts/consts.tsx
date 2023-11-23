@@ -15,3 +15,11 @@ export const RATING_NUMBERS = [
   { id: 4, number: 2, title: 'badly' },
   { id: 5, number: 1, title: 'terribly' },
 ];
+export const LOCATIONS_NAME: string[] = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
