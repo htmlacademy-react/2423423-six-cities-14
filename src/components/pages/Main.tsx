@@ -8,21 +8,27 @@ import { useAppSelector } from '../../types/store';
 import { OfferApi } from '../../types/offer';
 import Spinner from '../Spinner/Spinner';
 import { MainEmpty } from './MainEmpty';
+import { store } from '../../store';
+import { fetchFavorites, fetchOffersAction } from '../../store/api-actions';
+
+
+store.dispatch(fetchOffersAction());
+store.dispatch(fetchFavorites());
 
 export default function Main() {
   //получение активного города и списка всех предложений
-  const activeCityName = useAppSelector((state) => state.city);
-  const fullOffers = useAppSelector((state) => state.offers);
+  const activeCityName = useAppSelector((state) => state.offers.city);
+  const offers = useAppSelector((state) => state.offers.offers);
   //определение данных о городе, для передачи его точек в карту
-  const cityData = fullOffers.find((item) => item.city.name === activeCityName);
+  const cityData = offers.find((item) => item.city.name === activeCityName);
   //определение данных предложений активного города для передачи в карту
-  const findPlacesCityData = fullOffers.filter(
+  const findPlacesCityData = offers.filter(
     (item) => item.city.name === activeCityName
   );
   //определение id сортировки и применение соответствующего фильтра
-  const activeFilterCategory = useAppSelector((state) => state.filter.id);
+  const activeFilterCategory = useAppSelector((state) => state.offers.filter);
   const switchFilter = (itemA: OfferApi, itemB: OfferApi) => {
-    switch (activeFilterCategory) {
+    switch (activeFilterCategory.id) {
       case 'lth':
         return itemA.price - itemB.price;
 

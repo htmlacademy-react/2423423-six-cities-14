@@ -5,10 +5,10 @@ import { logoutAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../consts/consts';
 
 function Header() {
-  const userInfo = useAppSelector((state) => state.userData);
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const userInfo = useAppSelector((state) => state.user.userData);
+  const favoriteOffers = useAppSelector((state) => state.favorites.favoriteOffers);
   const authorizationStatus = useAppSelector(
-    (state) => state.statusAuthorization
+    (state) => state.user.authorizationStatus
   );
   const dispatch = useAppDispatch();
   const handleClick = () => {

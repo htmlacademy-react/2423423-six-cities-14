@@ -1,4 +1,4 @@
-export type ToggleFavoriteOffer = {
-  offerId: string | undefined;
+export type FavoriteData = {
+  offerId: string;
   status: number;
 };
