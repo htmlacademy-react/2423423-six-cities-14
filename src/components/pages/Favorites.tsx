@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { store } from '../../store';
 import { useAppSelector } from '../../types/store';
 import Header from '../Header/Header';
@@ -8,11 +7,10 @@ import { LOCATIONS_NAME } from '../../consts/consts';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import { NavLink } from 'react-router-dom';
 
+store.dispatch(fetchFavorites());
+
 export default function Favorites() {
-  useEffect(() => {
-    store.dispatch(fetchFavorites());
-  }, []);
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const favoriteOffers = useAppSelector((state) => state.favorites.favoriteOffers);
   const filterLocation = LOCATIONS_NAME.filter((location) => favoriteOffers.map((item) => item.city.name).includes(location));
   return (
     <div className="page">

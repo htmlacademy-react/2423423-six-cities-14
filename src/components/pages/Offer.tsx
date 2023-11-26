@@ -23,8 +23,8 @@ export default function Offer() {
     }
   }, [offerId]);
   //получение активного города,получение текущего предложения по айди,получение предложений рядом
-  const infoOffer = useAppSelector((state) => state.activeOffer);
-  const infoOfferNearby = useAppSelector((state) => state.offerNearby).slice(
+  const infoOffer = useAppSelector((state) => state.offers.activeOffer);
+  const infoOfferNearby = useAppSelector((state) => state.offers.offerNearby).slice(
     0,
     10
   );

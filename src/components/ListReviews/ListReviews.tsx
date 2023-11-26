@@ -9,7 +9,7 @@ function ListReviews() {
   const params = useParams();
   const offerId = params.id;
   //отзывы
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector((state) => state.user.comments);
   const list = reviews.slice().sort((a, b)=> (new Date(b.date)).getTime() - (new Date(a.date)).getTime()).slice(0, MAX_REVIEW_COUNT);
 
   useEffect(() => {

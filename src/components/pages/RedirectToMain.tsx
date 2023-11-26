@@ -9,7 +9,7 @@ type RedirectToMainRouteProps = {
 
 function RedirectToMain({ children }: RedirectToMainRouteProps) {
   const authorizationStatus = useAppSelector(
-    (state) => state.statusAuthorization
+    (state) => state.user.authorizationStatus
   );
   return authorizationStatus === AuthorizationStatus.Auth ? (
     <Navigate to={AppRoute.Root} />

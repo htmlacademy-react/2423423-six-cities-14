@@ -5,7 +5,7 @@ import { fetchComments, postComment } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../types/store';
 
 export default function Reviews() {
-  const id = useAppSelector((state) => state.activeOffer)?.id;
+  const id = useAppSelector((state) => state.offers.activeOffer)?.id;
   const dispatch = useAppDispatch();
 
   const [comment, setComment] = useState('');

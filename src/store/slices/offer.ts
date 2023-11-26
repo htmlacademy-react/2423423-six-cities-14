@@ -71,7 +71,7 @@ export const offerSlice = createSlice({
         state.offerNearby = action.payload;
         state.isOffersNearbyDataLoading = LoadingStatus.Success;
       })
-      .addCase(fetchOfferAction.rejected, (state) => {
+      .addCase(fetchOffersNearby.rejected, (state) => {
         state.isOffersNearbyDataLoading = LoadingStatus.Error;
       });
   },
