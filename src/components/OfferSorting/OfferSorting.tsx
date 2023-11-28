@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-// import { changedFilter } from '../../store/action';
 import { useAppSelector } from '../../types/store';
 import { useState } from 'react';
 import { OfferApi } from '../../types/offer';
@@ -20,7 +19,7 @@ const settings: ISettings[] = [
   { id: 'top', title: 'Top rated first' },
 ];
 
-function FilterOffer({ isActiveCity }: ICityProps) {
+function OfferSorting({ isActiveCity }: ICityProps) {
   const [toggle, setToggleSort] = useState(false);
   const activeFilterCategory = useAppSelector((state) => state.offers.filter);
   const dispatch = useDispatch();
@@ -76,4 +75,4 @@ function FilterOffer({ isActiveCity }: ICityProps) {
   );
 }
 
-export default FilterOffer;
+export default OfferSorting;

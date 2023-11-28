@@ -1,10 +1,10 @@
 import { RATING_NUMBERS } from '../../consts/consts';
-import ListReviews from '../ListReviews/ListReviews';
+import ListReviews from '../OfferComments/Comments';
 import { Fragment, useState, FormEvent } from 'react';
 import { fetchComments, postComment } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../types/store';
 
-export default function Reviews() {
+export default function FormComment() {
   const id = useAppSelector((state) => state.offers.activeOffer)?.id;
   const dispatch = useAppDispatch();
 

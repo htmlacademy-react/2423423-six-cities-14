@@ -7,19 +7,19 @@ import PrivateRoute from './components/pages/PrivateRoute';
 import './styles/styles.css';
 import { AppRoute } from './consts/route';
 
-import { LOCATIONS_NAME} from './consts/consts';
-// import Spinner from './components/Spinner/Spinner';
+import { AuthorizationStatus, LOCATIONS_NAME, LoadingStatus} from './consts/consts';
+import Spinner from './components/Spinner/Spinner';
 import RedirectToMain from './components/pages/RedirectToMain';
 import Favorites from './components/pages/Favorites';
-// import { useAppSelector } from './types/store';
+import { useAppSelector } from './types/store';
 
 
 export default function App() {
-  // const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
-  // const loadingStatus = useAppSelector((state) => state.offers.isOffersDataLoading);
-  // if (loadingStatus === LoadingStatus.Idle || loadingStatus === LoadingStatus.Loading || authorizationStatus === AuthorizationStatus.Unknown) {
-  //   return <Spinner />;
-  // }
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const loadingStatus = useAppSelector((state) => state.offers.isOffersDataLoading);
+  if (loadingStatus === LoadingStatus.Idle || loadingStatus === LoadingStatus.Loading || authorizationStatus === AuthorizationStatus.Unknown) {
+    return <Spinner />;
+  }
   return (
     <BrowserRouter>
       <Routes>

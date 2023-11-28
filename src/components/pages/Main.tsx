@@ -1,9 +1,9 @@
-import List from '../List/List';
+import List from '../CardList/List';
 import Map from '../Map/Map';
 import { useState } from 'react';
 import Header from '../Header/Header';
 import Tabs from '../Tabs/Tabs';
-import FilterOffer from '../FilterOffer/FilterOffer';
+import FilterOffer from '../OfferSorting/OfferSorting';
 import { useAppSelector } from '../../types/store';
 import { OfferApi } from '../../types/offer';
 import Spinner from '../Spinner/Spinner';

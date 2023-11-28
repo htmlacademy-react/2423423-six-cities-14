@@ -1,16 +1,17 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Reviews from '../formReviews/Reviews';
+import FormComment from '../OfferFormComment/FormComment';
 import Header from '../Header/Header';
 import Map from '../Map/Map';
-import List from '../List/List';
+import List from '../CardList/List';
 import { useAppSelector } from '../../types/store';
 import { OfferApi } from '../../types/offer';
 import { store } from '../../store';
 import { fetchOfferAction, fetchOffersNearby } from '../../store/api-actions';
 import Spinner from '../Spinner/Spinner';
 import { AppRoute } from '../../consts/route';
-// import { MAX_REVIEW_COUNT } from '../../consts/consts';
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
+import Host from '../OfferHost/Host';
 
 export default function Offer() {
   const params = useParams();
@@ -24,10 +25,9 @@ export default function Offer() {
   }, [offerId]);
   //получение активного города,получение текущего предложения по айди,получение предложений рядом
   const infoOffer = useAppSelector((state) => state.offers.activeOffer);
-  const infoOfferNearby = useAppSelector((state) => state.offers.offerNearby).slice(
-    0,
-    10
-  );
+  const infoOfferNearby = useAppSelector(
+    (state) => state.offers.offerNearby
+  ).slice(0, 10);
 
   // маркеры
   const [selectedPoint, setSelectedPoint] = useState<OfferApi | undefined>(
@@ -73,16 +73,7 @@ export default function Offer() {
 
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{infoOffer.title}</h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">
-                    {infoOffer.isFavorite === false
-                      ? 'To bookmark'
-                      : 'In bookmark'}
-                  </span>
-                </button>
+                <FavoriteButton place={infoOffer} />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -116,39 +107,8 @@ export default function Offer() {
                   ))}
                 </ul>
               </div>
-              <div className="offer__host">
-                <h2 className="offer__host-title">Meet the host</h2>
-                <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img
-                      className="offer__avatar user__avatar"
-                      src={infoOffer.host.avatarUrl}
-                      width="74"
-                      height="74"
-                      alt="Host avatar"
-                    />
-                  </div>
-                  <span className="offer__user-name">
-                    {infoOffer.host.name}
-                  </span>
-                  <span className="offer__user-status">
-                    {infoOffer.host.isPro && 'Pro'}
-                  </span>
-                </div>
-                <div className="offer__description">
-                  <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by
-                    the unique lightness of Amsterdam. The building is green and
-                    from 18th century.
-                  </p>
-                  <p className="offer__text">
-                    An independent House, strategically located between Rembrand
-                    Square and National Opera, but where the bustle of the city
-                    comes to rest in this alley flowery and colorful.
-                  </p>
-                </div>
-              </div>
-              <Reviews />
+              <Host infoOffer={infoOffer} />
+              <FormComment />
             </div>
           </div>
           <section className="offer__map map ">

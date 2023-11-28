@@ -5,7 +5,7 @@ import {useEffect} from 'react';
 import { store } from '../../store';
 import { useParams } from 'react-router-dom';
 
-function ListReviews() {
+function Comments() {
   const params = useParams();
   const offerId = params.id;
   //отзывы
@@ -58,4 +58,4 @@ function ListReviews() {
   );
 }
 
-export default ListReviews;
+export default Comments;

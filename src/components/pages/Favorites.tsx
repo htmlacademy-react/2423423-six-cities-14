@@ -5,13 +5,18 @@ import FavoritesEmpty from './FavoritesEmpty';
 import { fetchFavorites } from '../../store/api-actions';
 import { LOCATIONS_NAME } from '../../consts/consts';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 
 store.dispatch(fetchFavorites());
 
 export default function Favorites() {
-  const favoriteOffers = useAppSelector((state) => state.favorites.favoriteOffers);
-  const filterLocation = LOCATIONS_NAME.filter((location) => favoriteOffers.map((item) => item.city.name).includes(location));
+  const favoriteOffers = useAppSelector(
+    (state) => state.favorites.favoriteOffers
+  );
+  const filterLocation = LOCATIONS_NAME.filter((location) =>
+    favoriteOffers.map((item) => item.city.name).includes(location)
+  );
   return (
     <div className="page">
       <Header />
@@ -27,7 +32,10 @@ export default function Favorites() {
                     <li className="favorites__locations-items">
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
-                          <NavLink to={`/${locationName}`} className="locations__item-link">
+                          <NavLink
+                            to={`/${locationName}`}
+                            className="locations__item-link"
+                          >
                             <span>{locationName}</span>
                           </NavLink>
                         </div>
@@ -41,7 +49,7 @@ export default function Favorites() {
                       )
                       .map((offerData) => (
                         <div key={offerData.id} className="favorites__places">
-                          <article className="favorites__card place-card" >
+                          <article className="favorites__card place-card">
                             {offerData.isPremium && (
                               <div className="place-card__mark">
                                 <span>Premium</span>
@@ -49,7 +57,7 @@ export default function Favorites() {
                             )}
 
                             <div className="favorites__image-wrapper place-card__image-wrapper">
-                              <a href="#">
+                              <Link to={`/offer/${offerData.id}`}>
                                 <img
                                   className="place-card__image"
                                   src={offerData.previewImage}
@@ -57,7 +65,7 @@ export default function Favorites() {
                                   height="110"
                                   alt="Place image"
                                 />
-                              </a>
+                              </Link>
                             </div>
                             <div className="favorites__card-info place-card__info">
                               <div className="place-card__price-wrapper">
@@ -69,11 +77,11 @@ export default function Favorites() {
                                     &#47;&nbsp;night
                                   </span>
                                 </div>
-                                <FavoriteButton place={offerData}/>
+                                <FavoriteButton place={offerData} />
                               </div>
                               <div className="place-card__rating rating">
                                 <div className="place-card__stars rating__stars">
-                                  <span style={{ width: (offerData.rating * 100) / 5 }}></span>
+                                  <span style={{ width: (offerData.rating * 100) / 5,}}></span>
                                   <span className="visually-hidden">
                                     Rating
                                   </span>
@@ -82,7 +90,9 @@ export default function Favorites() {
                               <h2 className="place-card__name">
                                 <a href="#">{offerData.title}</a>
                               </h2>
-                              <p className="place-card__type">{offerData.type}</p>
+                              <p className="place-card__type">
+                                {offerData.type}
+                              </p>
                             </div>
                           </article>
                         </div>
@@ -96,17 +106,8 @@ export default function Favorites() {
           )}
         </div>
       </main>
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width="64"
-            height="33"
-          />
-        </a>
-      </footer>
+
+      <Footer />
     </div>
   );
 }
