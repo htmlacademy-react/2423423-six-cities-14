@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginAction } from '../store/api-actions';
 import { useAppDispatch } from '../types/store';
 import { FormEvent, useRef, useState } from 'react';
 import { AppRoute } from '../consts/route';
 import Logo from '../components/Logo/Logo';
+import { LOCATIONS_NAME } from '../consts/consts';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -25,6 +26,9 @@ export default function Login() {
       navigate(AppRoute.Root);
     }
   };
+  const getRandomCity = (cities: string[]) => cities[Math.floor(Math.random() * 6)];
+  const randomCity = getRandomCity(LOCATIONS_NAME);
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -81,9 +85,9 @@ export default function Login() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" to={`/${randomCity}`}>
+                <span>{randomCity}</span>
+              </Link>
             </div>
           </section>
         </div>
