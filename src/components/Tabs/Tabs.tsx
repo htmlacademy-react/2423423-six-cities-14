@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { changedCity } from '../../store/action';
 import { useAppSelector } from '../../types/store';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { LOCATIONS_NAME } from '../../consts/consts';
 function Tabs() {
   const activeCityName = useAppSelector((state) => state.city);
@@ -16,19 +16,16 @@ function Tabs() {
         <section className="locations container">
           <ul className="locations__list tabs__list">
             {LOCATIONS_NAME.map((item) => (
-              <li
-                className="locations__item"
-                key={item}
-                onClick={() => handleClick(item)}
-              >
-                <Link
-                  to="#"
+              <li className="locations__item" key={item}>
+                <NavLink
+                  to={`/${item}`}
                   className={`locations__item-link tabs__item  ${
                     activeCityName === item && 'tabs__item--active'
                   }`}
+                  onClick={() => handleClick(item)}
                 >
                   <span>{item}</span>
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>

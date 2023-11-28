@@ -6,6 +6,7 @@ import { AuthorizationStatus } from '../../consts/consts';
 
 function Header() {
   const userInfo = useAppSelector((state) => state.userData);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
   const authorizationStatus = useAppSelector(
     (state) => state.statusAuthorization
   );
@@ -38,7 +39,7 @@ function Header() {
                   to={AppRoute.Favorites}
                   className="header__nav-link header__nav-link--profile"
                 >
-                  {userInfo && authorizationStatus === AuthorizationStatus.Auth && (
+                  {authorizationStatus === AuthorizationStatus.Auth && (
                     <>
                       <div
                         className="header__avatar-wrapper user__avatar-wrapper"
@@ -52,27 +53,26 @@ function Header() {
                       <span className="header__user-name user__name">
                         {userInfo?.name}
                       </span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favoriteOffers.length}</span>
                     </>
                   )}
                 </Link>
               </li>
               <li className="header__nav-item">
-                {userInfo &&
-                authorizationStatus === AuthorizationStatus.Auth ? (
-                    <Link to={AppRoute.Root} className="header__nav-link">
-                      <span
-                        className="header__signout"
-                        onClick={() => handleClick()}
-                      >
-                        Sign out
-                      </span>
-                    </Link>
-                  ) : (
-                    <Link to={AppRoute.Login} className="header__nav-link">
-                      <span className="header__signout">Sign in</span>
-                    </Link>
-                  )}
+                {authorizationStatus === AuthorizationStatus.Auth ? (
+                  <Link to={AppRoute.Root} className="header__nav-link">
+                    <span
+                      className="header__signout"
+                      onClick={() => handleClick()}
+                    >
+                      Sign out
+                    </span>
+                  </Link>
+                ) : (
+                  <Link to={AppRoute.Login} className="header__nav-link">
+                    <span className="header__signout">Sign in</span>
+                  </Link>
+                )}
               </li>
             </ul>
           </nav>

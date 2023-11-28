@@ -7,10 +7,15 @@ import PrivateRoute from './components/pages/PrivateRoute';
 import './styles/styles.css';
 import { AppRoute } from './consts/route';
 import { useAppSelector } from './types/store';
-import { AuthorizationStatus } from './consts/consts';
+import { AuthorizationStatus, LOCATIONS_NAME } from './consts/consts';
 import Spinner from './components/Spinner/Spinner';
 import RedirectToMain from './components/pages/RedirectToMain';
 import Favorites from './components/pages/Favorites';
+import { store } from './store';
+import { checkAuthAction, fetchOffersAction } from './store/api-actions';
+
+store.dispatch(fetchOffersAction());
+store.dispatch(checkAuthAction());
 
 export default function App() {
   const authorizationStatus = useAppSelector(
@@ -22,7 +27,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<Main />} />
+        <Route path={AppRoute.Root} element={<Main />}>
+          {LOCATIONS_NAME.map((city) => (
+            <Route key={city} path={city} element={<Main />}></Route>
+          ))}
+        </Route>
         <Route
           path={AppRoute.Login}
           element={

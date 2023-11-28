@@ -17,6 +17,7 @@ import { OfferApi } from '../types/offer';
 import { User } from '../types/user';
 import { AuthorizationStatus } from '../consts/consts';
 import { Comment, PostComment } from '../types/comment';
+import { ToggleFavoriteOffer } from '../types/favorite';
 
 interface IInitialState {
   city: string;
@@ -33,7 +34,7 @@ interface IInitialState {
   reviews: Comment[];
   comment: PostComment | null;
   favoriteOffers: OfferApi[];
-  toogleFavor: OfferApi | null;
+  toogleFavor: ToggleFavoriteOffer | null;
 }
 
 const initialState: IInitialState = {
