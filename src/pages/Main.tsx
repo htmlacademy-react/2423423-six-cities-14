@@ -1,15 +1,15 @@
-import List from '../CardList/List';
-import Map from '../Map/Map';
+import List from '../components/CardList/List';
+import Map from '../components/Map/Map';
 import { useState } from 'react';
-import Header from '../Header/Header';
-import Tabs from '../Tabs/Tabs';
-import FilterOffer from '../OfferSorting/OfferSorting';
-import { useAppSelector } from '../../types/store';
-import { OfferApi } from '../../types/offer';
-import Spinner from '../Spinner/Spinner';
+import Header from '../components/Header/Header';
+import Tabs from '../components/Tabs/Tabs';
+import FilterOffer from '../components/OfferSorting/OfferSorting';
+import { useAppSelector } from '../types/store';
+import { OfferApi } from '../types/offer';
+import Spinner from '../components/Spinner/Spinner';
 import { MainEmpty } from './MainEmpty';
-import { store } from '../../store';
-import { fetchFavorites, fetchOffersAction } from '../../store/api-actions';
+import { store } from '../store';
+import { fetchFavorites, fetchOffersAction } from '../store/api-actions';
 
 
 store.dispatch(fetchOffersAction());

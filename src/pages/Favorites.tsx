@@ -1,12 +1,12 @@
-import { store } from '../../store';
-import { useAppSelector } from '../../types/store';
-import Header from '../Header/Header';
+import { store } from '../store';
+import { useAppSelector } from '../types/store';
+import Header from '../components/Header/Header';
 import FavoritesEmpty from './FavoritesEmpty';
-import { fetchFavorites } from '../../store/api-actions';
-import { LOCATIONS_NAME } from '../../consts/consts';
-import FavoriteButton from '../FavoriteButton/FavoriteButton';
+import { fetchFavorites } from '../store/api-actions';
+import { LOCATIONS_NAME } from '../consts/consts';
+import FavoriteButton from '../components/FavoriteButton/FavoriteButton';
 import { Link, NavLink } from 'react-router-dom';
-import Footer from '../Footer/Footer';
+import Footer from '../components/Footer/Footer';
 
 store.dispatch(fetchFavorites());
 

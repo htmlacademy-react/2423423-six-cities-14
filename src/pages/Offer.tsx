@@ -1,17 +1,17 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import FormComment from '../OfferFormComment/FormComment';
-import Header from '../Header/Header';
-import Map from '../Map/Map';
-import List from '../CardList/List';
-import { useAppSelector } from '../../types/store';
-import { OfferApi } from '../../types/offer';
-import { store } from '../../store';
-import { fetchOfferAction, fetchOffersNearby } from '../../store/api-actions';
-import Spinner from '../Spinner/Spinner';
-import { AppRoute } from '../../consts/route';
-import FavoriteButton from '../FavoriteButton/FavoriteButton';
-import Host from '../OfferHost/Host';
+import FormComment from '../components/OfferFormComment/FormComment';
+import Header from '../components/Header/Header';
+import Map from '../components/Map/Map';
+import List from '../components/CardList/List';
+import { useAppSelector } from '../types/store';
+import { OfferApi } from '../types/offer';
+import { store } from '../store';
+import { fetchOfferAction, fetchOffersNearby } from '../store/api-actions';
+import Spinner from '../components/Spinner/Spinner';
+import { AppRoute } from '../consts/route';
+import FavoriteButton from '../components/FavoriteButton/FavoriteButton';
+import Host from '../components/OfferHost/Host';
 
 export default function Offer() {
   const params = useParams();

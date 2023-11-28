@@ -1,5 +1,5 @@
-import Header from '../Header/Header';
-import dino from '../../assets/Dino.png';
+import Header from '../components/Header/Header';
+import dino from '../assets/Dino.png';
 import { Link } from 'react-router-dom';
 
 export default function NotFound() {

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { loginAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../types/store';
+import { loginAction } from '../store/api-actions';
+import { useAppDispatch } from '../types/store';
 import { FormEvent, useRef, useState } from 'react';
-import { AppRoute } from '../../consts/route';
-import Logo from '../Logo/Logo';
+import { AppRoute } from '../consts/route';
+import Logo from '../components/Logo/Logo';
 
 export default function Login() {
   const navigate = useNavigate();

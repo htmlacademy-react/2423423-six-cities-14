@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import { AuthorizationStatus } from '../../consts/consts';
-import { AppRoute } from '../../consts/route';
-import { useAppSelector } from '../../types/store';
+import { AuthorizationStatus } from '../consts/consts';
+import { AppRoute } from '../consts/route';
+import { useAppSelector } from '../types/store';
 
 type RedirectToMainRouteProps = {
   children: JSX.Element;
