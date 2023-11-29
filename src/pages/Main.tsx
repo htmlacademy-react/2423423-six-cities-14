@@ -1,28 +1,39 @@
-import List from '../List/List';
-import Map from '../Map/Map';
-import { useState } from 'react';
-import Header from '../Header/Header';
-import Tabs from '../Tabs/Tabs';
-import FilterOffer from '../FilterOffer/FilterOffer';
-import { useAppSelector } from '../../types/store';
-import { OfferApi } from '../../types/offer';
-import Spinner from '../Spinner/Spinner';
+import List from '../components/CardList/List';
+import Map from '../components/Map/Map';
+import { useState, useEffect } from 'react';
+import Header from '../components/Header/Header';
+import Tabs from '../components/Tabs/Tabs';
+import FilterOffer from '../components/OfferSorting/OfferSorting';
+import { useAppDispatch, useAppSelector } from '../types/store';
+import { OfferApi } from '../types/offer';
+import Spinner from '../components/Spinner/Spinner';
 import { MainEmpty } from './MainEmpty';
+import { store } from '../store';
+import { fetchFavorites, fetchOffersAction } from '../store/api-actions';
+import { DEFAULT_LOCATION, LOCATIONS_NAME } from '../consts/consts';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { offerSlice } from '../store/slices/offer';
+
+
+store.dispatch(fetchOffersAction());
+store.dispatch(fetchFavorites());
 
 export default function Main() {
+  const dispatch = useAppDispatch();
+  const location = useLocation().pathname.slice(1);
   //получение активного города и списка всех предложений
-  const activeCityName = useAppSelector((state) => state.city);
-  const fullOffers = useAppSelector((state) => state.offers);
+  const activeCityName = useAppSelector((state) => state.offers.city);
+  const offers = useAppSelector((state) => state.offers.offers);
   //определение данных о городе, для передачи его точек в карту
-  const cityData = fullOffers.find((item) => item.city.name === activeCityName);
+  const cityData = offers.find((item) => item.city.name === activeCityName);
   //определение данных предложений активного города для передачи в карту
-  const findPlacesCityData = fullOffers.filter(
+  const findPlacesCityData = offers.filter(
     (item) => item.city.name === activeCityName
   );
   //определение id сортировки и применение соответствующего фильтра
-  const activeFilterCategory = useAppSelector((state) => state.filter.id);
+  const activeFilterCategory = useAppSelector((state) => state.offers.filter);
   const switchFilter = (itemA: OfferApi, itemB: OfferApi) => {
-    switch (activeFilterCategory) {
+    switch (activeFilterCategory.id) {
       case 'lth':
         return itemA.price - itemB.price;
 
@@ -47,7 +58,17 @@ export default function Main() {
     );
     setSelectedPoint(currentPoint);
   };
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    // При переходе со страницы логин на случайный город
+    if (activeCityName !== location && LOCATIONS_NAME.includes(location)) {
+      dispatch(offerSlice.actions.changedCity(location));
+    }
+    if(!location || !LOCATIONS_NAME.includes(location)) {
+      dispatch(offerSlice.actions.changedCity(location));
+      navigate(`/${DEFAULT_LOCATION}`);
+    }
+  }, [activeCityName, navigate, location, dispatch]);
   if (!cityData || !sortingPlacesData) {
     return <Spinner />;
   }

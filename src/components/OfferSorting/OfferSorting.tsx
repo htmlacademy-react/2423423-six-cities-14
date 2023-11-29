@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
-import { changedFilter } from '../../store/action';
 import { useAppSelector } from '../../types/store';
 import { useState } from 'react';
 import { OfferApi } from '../../types/offer';
+import { offerSlice } from '../../store/slices/offer';
 
 type ICityProps = {
   isActiveCity: OfferApi;
@@ -19,16 +19,16 @@ const settings: ISettings[] = [
   { id: 'top', title: 'Top rated first' },
 ];
 
-function FilterOffer({ isActiveCity }: ICityProps) {
+function OfferSorting({ isActiveCity }: ICityProps) {
   const [toggle, setToggleSort] = useState(false);
-  const activeFilterCategory = useAppSelector((state) => state.filter);
+  const activeFilterCategory = useAppSelector((state) => state.offers.filter);
   const dispatch = useDispatch();
   const handleClick = (id: string, title: string) => {
-    dispatch(changedFilter(id, title));
+    dispatch(offerSlice.actions.changedFilter({ id, title }));
   };
 
   //считаю количество предложений по заданному городу
-  const fullOffers = useAppSelector((state) => state.offers);
+  const fullOffers = useAppSelector((state) => state.offers.offers);
   const arrayOffers = fullOffers.filter(
     (item) => item.city.name === isActiveCity.city.name
   );
@@ -75,4 +75,4 @@ function FilterOffer({ isActiveCity }: ICityProps) {
   );
 }
 
-export default FilterOffer;
+export default OfferSorting;

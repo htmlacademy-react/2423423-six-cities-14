@@ -1,16 +1,13 @@
 .wrapLoader {
   display: flex;
   flex-direction: row;
-  width: 300px;
   justify-content: space-between;
   width: 80px;
   height: 80px;
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
-  margin: auto auto;
-  align-items: center;
-  justify-content: center;
+  transform: translate(-50%,-50%);
   border-radius: 100%;
   animation: spinner-rotate 1s linear infinite;
   -webkit-animation: spinner-rotate 1s linear infinite;
@@ -24,7 +21,7 @@
   position: absolute;
   display: inline-block;
   top: 0;
-  background: #029491;
+  background: #4481c3;
   animation: preloader-bounce 1s linear infinite;
   -webkit-animation: preloader-bounce 1s linear infinite;
 }

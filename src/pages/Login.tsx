@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { loginAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../types/store';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginAction } from '../store/api-actions';
+import { useAppDispatch } from '../types/store';
 import { FormEvent, useRef, useState } from 'react';
-import { AppRoute } from '../../consts/route';
-// import { setstatusAuth } from '../../store/action';
-// import { AuthorizationStatus } from '../../consts/consts';
+import { AppRoute } from '../consts/route';
+import Logo from '../components/Logo/Logo';
+import { LOCATIONS_NAME } from '../consts/consts';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -26,22 +26,15 @@ export default function Login() {
       navigate(AppRoute.Root);
     }
   };
+  const getRandomCity = (cities: string[]) => cities[Math.floor(Math.random() * 6)];
+  const randomCity = getRandomCity(LOCATIONS_NAME);
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img
-                  className="header__logo"
-                  src="img/logo.svg"
-                  alt="6 cities logo"
-                  width="81"
-                  height="41"
-                />
-              </a>
-            </div>
+            <Logo />
           </div>
         </div>
       </header>
@@ -92,9 +85,9 @@ export default function Login() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" to={`/${randomCity}`}>
+                <span>{randomCity}</span>
+              </Link>
             </div>
           </section>
         </div>

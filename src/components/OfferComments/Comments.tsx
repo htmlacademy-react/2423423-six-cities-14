@@ -5,11 +5,11 @@ import {useEffect} from 'react';
 import { store } from '../../store';
 import { useParams } from 'react-router-dom';
 
-function ListReviews() {
+function Comments() {
   const params = useParams();
   const offerId = params.id;
   //отзывы
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector((state) => state.user.comments);
   const list = reviews.slice().sort((a, b)=> (new Date(b.date)).getTime() - (new Date(a.date)).getTime()).slice(0, MAX_REVIEW_COUNT);
 
   useEffect(() => {
@@ -58,4 +58,4 @@ function ListReviews() {
   );
 }
 
-export default ListReviews;
+export default Comments;

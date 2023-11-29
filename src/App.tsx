@@ -1,27 +1,23 @@
-import Login from './components/pages/Login';
-import Main from './components/pages/Main';
-import NotFound from './components/pages/NotFound';
-import Offer from './components/pages/Offer';
+import Login from './pages/Login';
+import Main from './pages/Main';
+import NotFound from './pages/NotFound';
+import Offer from './pages/Offer';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import PrivateRoute from './components/pages/PrivateRoute';
+import PrivateRoute from './pages/PrivateRoute';
 import './styles/styles.css';
 import { AppRoute } from './consts/route';
-import { useAppSelector } from './types/store';
-import { AuthorizationStatus, LOCATIONS_NAME } from './consts/consts';
-import Spinner from './components/Spinner/Spinner';
-import RedirectToMain from './components/pages/RedirectToMain';
-import Favorites from './components/pages/Favorites';
-import { store } from './store';
-import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 
-store.dispatch(fetchOffersAction());
-store.dispatch(checkAuthAction());
+import { AuthorizationStatus, LOCATIONS_NAME, LoadingStatus} from './consts/consts';
+import Spinner from './components/Spinner/Spinner';
+import RedirectToMain from './pages/RedirectToMain';
+import Favorites from './pages/Favorites';
+import { useAppSelector } from './types/store';
+
 
 export default function App() {
-  const authorizationStatus = useAppSelector(
-    (state) => state.statusAuthorization
-  );
-  if (authorizationStatus === AuthorizationStatus.Unknown) {
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const loadingStatus = useAppSelector((state) => state.offers.isOffersDataLoading);
+  if (loadingStatus === LoadingStatus.Idle || loadingStatus === LoadingStatus.Loading || authorizationStatus === AuthorizationStatus.Unknown) {
     return <Spinner />;
   }
   return (

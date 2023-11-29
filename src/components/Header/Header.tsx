@@ -1,14 +1,17 @@
 import { AppRoute } from '../../consts/route';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../types/store';
-import { logoutAction } from '../../store/api-actions';
+import { fetchUserData, logoutAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../consts/consts';
+import { store } from '../../store';
+import Logo from '../Logo/Logo';
 
+store.dispatch(fetchUserData());
 function Header() {
-  const userInfo = useAppSelector((state) => state.userData);
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const userInfo = useAppSelector((state) => state.user.userData);
+  const favoriteOffers = useAppSelector((state) => state.favorites.favoriteOffers);
   const authorizationStatus = useAppSelector(
-    (state) => state.statusAuthorization
+    (state) => state.user.authorizationStatus
   );
   const dispatch = useAppDispatch();
   const handleClick = () => {
@@ -18,20 +21,7 @@ function Header() {
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
-          <div className="header__left">
-            <a
-              className="header__logo-link header__logo-link--active"
-              href={AppRoute.Root}
-            >
-              <img
-                className="header__logo"
-                src="img/logo.svg"
-                alt="6 cities logo"
-                width="81"
-                height="41"
-              />
-            </a>
-          </div>
+          <Logo />
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">

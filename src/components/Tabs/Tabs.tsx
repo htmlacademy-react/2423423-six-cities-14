@@ -1,13 +1,14 @@
 import { useDispatch } from 'react-redux';
-import { changedCity } from '../../store/action';
 import { useAppSelector } from '../../types/store';
 import { NavLink } from 'react-router-dom';
 import { LOCATIONS_NAME } from '../../consts/consts';
+import { offerSlice } from '../../store/slices/offer';
+
 function Tabs() {
-  const activeCityName = useAppSelector((state) => state.city);
+  const activeCityName = useAppSelector((state) => state.offers.city);
   const dispatch = useDispatch();
   const handleClick = (name: string) => {
-    dispatch(changedCity(name));
+    dispatch(offerSlice.actions.changedCity(name));
   };
   return (
     <>
