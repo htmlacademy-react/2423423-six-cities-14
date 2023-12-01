@@ -13,8 +13,7 @@ import { fetchFavorites, fetchOffersAction } from '../store/api-actions';
 import { DEFAULT_LOCATION, LOCATIONS_NAME } from '../consts/consts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { offerSlice } from '../store/slices/offer';
-
-
+import classNames from 'classnames';
 store.dispatch(fetchOffersAction());
 store.dispatch(fetchFavorites());
 
@@ -60,15 +59,17 @@ export default function Main() {
   };
   const navigate = useNavigate();
   useEffect(() => {
-    // При переходе со страницы логин на случайный город
     if (activeCityName !== location && LOCATIONS_NAME.includes(location)) {
       dispatch(offerSlice.actions.changedCity(location));
     }
-    if(!location || !LOCATIONS_NAME.includes(location)) {
+    if (!location || !LOCATIONS_NAME.includes(location)) {
       dispatch(offerSlice.actions.changedCity(location));
       navigate(`/${DEFAULT_LOCATION}`);
     }
   }, [activeCityName, navigate, location, dispatch]);
+  const mainPageClass = classNames('page__main', 'page__main--index', {
+    'page__main--index-empty': findPlacesCityData.length <= 0,
+  });
   if (!cityData || !sortingPlacesData) {
     return <Spinner />;
   }
@@ -76,15 +77,24 @@ export default function Main() {
     <div className="page page--gray page--main">
       <Header />
 
-      <main className="page__main page__main--index">
-        <Tabs />
+      <main className={mainPageClass}>
+        <h1 className="visually-hidden">Cities</h1>
+        <div className="tabs">
+          <section className="locations container">
+            <ul className="locations__list tabs__list">
+              {LOCATIONS_NAME.map((localCity) => (
+                <Tabs key={localCity} city={localCity} />
+              ))}
+            </ul>
+          </section>
+        </div>
 
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <FilterOffer isActiveCity={cityData} />
 
-              {findPlacesCityData ? (
+              {findPlacesCityData.length > 0 ? (
                 <List
                   places={sortingPlacesData}
                   onListItemHover={handleListItemHover}
