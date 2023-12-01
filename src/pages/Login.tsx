@@ -3,7 +3,7 @@ import { loginAction } from '../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../types/store';
 import { FormEvent, useRef, useState } from 'react';
 import { AppRoute } from '../consts/route';
-import Logo from '../components/Logo/Logo';
+import Logo from '../components/logo';
 import { AuthorizationStatus, LOCATIONS_NAME } from '../consts/consts';
 
 export default function Login() {
@@ -68,7 +68,7 @@ export default function Login() {
                   placeholder="Email"
                   value={loginData}
                   onChange={(e) => setLoginData(e.target.value)}
-                  pattern="^\w+@[a-z]+\.[a-z]{2,}$"
+                  pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$"
                   required
                 />
               </div>
@@ -82,7 +82,7 @@ export default function Login() {
                   placeholder="Password"
                   value={passwordData}
                   onChange={(e) => setPasswordData(e.target.value)}
-                  pattern="^(?=.*\d)(?=.*[a-zA-Z])([a-zA-Z0-9]+)$"
+                  pattern="^(?=.*[a-zA-Z])(?=.*\d).+$"
                   required
                 />
               </div>

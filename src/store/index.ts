@@ -1,16 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { createAPI } from '../utils/api';
+import { createAPI } from '../services/api';
 import { NameSpace } from '../consts/consts';
 import { offerSlice } from './slices/offer';
 import { userSlice } from './slices/user';
-import { favoriteSlice } from './slices/favorite';
+import { citySlice } from './slices/city';
 
 export const api = createAPI();
 
 export const reducer = combineReducers({
   [NameSpace.Offers]: offerSlice.reducer ,
   [NameSpace.User]: userSlice.reducer,
-  [NameSpace.Favorites]: favoriteSlice.reducer,
+  [NameSpace.City]: citySlice.reducer,
 });
 
 export const store = configureStore({

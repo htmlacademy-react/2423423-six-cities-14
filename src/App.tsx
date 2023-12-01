@@ -6,18 +6,18 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './pages/PrivateRoute';
 import './styles/styles.css';
 import { AppRoute } from './consts/route';
-import {HelmetProvider} from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 import {
   AuthorizationStatus,
   LOCATIONS_NAME,
   LoadingStatus,
 } from './consts/consts';
-import Spinner from './components/Spinner/Spinner';
-import RedirectToMain from './pages/RedirectToMain';
+import Spinner from './components/spinner';
+import RedirectToMain from './components/redirect-main';
 import Favorites from './pages/Favorites';
 import { useAppSelector } from './types/store';
 
-export default function App() {
+export default function App(): JSX.Element {
   const authorizationStatus = useAppSelector(
     (state) => state.user.authorizationStatus
   );
@@ -26,7 +26,7 @@ export default function App() {
   );
   if (
     loadingStatus === LoadingStatus.Idle ||
-    loadingStatus === LoadingStatus.Loading ||
+    loadingStatus === LoadingStatus.Pending ||
     authorizationStatus === AuthorizationStatus.Unknown
   ) {
     return <Spinner />;
@@ -56,7 +56,9 @@ export default function App() {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Offer} element={<Offer />} />
+          <Route path={AppRoute.Offer}>
+            <Route path={':id'} element={<Offer />} />
+          </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,93 +1,61 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus, NameSpace } from '../../consts/consts';
-import { User } from '../../types/user';
-import { PostComment, Comment } from '../../types/comment';
-import { fetchComments, fetchUserData, postComment } from '../api-actions';
+import {
+  AuthorizationStatus,
+  LoadingStatus,
+  NameSpace,
+} from '../../consts/consts';
+import { getCurrentUserData, loginAction, logoutAction } from '../api-actions';
+import { UserData } from '../../types/api-data';
 
 interface IInitialState {
   authorizationStatus: AuthorizationStatus;
-  userData: User | null;
-  error: string | null;
-  comments: Comment[] | [];
-  comment: PostComment | null;
-  isUserDataLoading: boolean;
-  isCommentsDataLoading: boolean;
-  hasLoadCommentsError: boolean;
-  isCommentDataPosting: boolean;
-  hasSendCommentsError: boolean;
+  userData: UserData | Record<string, never>;
+  isUserDataLoading: LoadingStatus;
+  isLoginLoading: LoadingStatus;
 }
 
 const initialState: IInitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userData: null,
-  error: null,
-  comments: [],
-  comment: null,
-  isUserDataLoading: false,
-  isCommentsDataLoading: false,
-  hasLoadCommentsError: false,
-  isCommentDataPosting: false,
-  hasSendCommentsError: false,
+  userData: {},
+  isUserDataLoading: LoadingStatus.Idle,
+  isLoginLoading: LoadingStatus.Idle,
 };
 
 export const userSlice = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {
-    setAuthorizationStatus: (
-      state,
-      action: PayloadAction<AuthorizationStatus>
-    ) => {
+    requireAuthStatus(state, action: PayloadAction<AuthorizationStatus>) {
       state.authorizationStatus = action.payload;
-    },
-    addUserData: (state, action: PayloadAction<User | null>) => {
-      state.userData = action.payload;
     },
   },
   extraReducers(builder) {
     builder
-      //user
-      .addCase(fetchUserData.pending, (state) => {
-        state.isUserDataLoading = true;
+      .addCase(getCurrentUserData.pending, (state) => {
+        state.isUserDataLoading = LoadingStatus.Pending;
       })
-      .addCase(fetchUserData.fulfilled, (state, action) => {
+      .addCase(getCurrentUserData.fulfilled, (state, action) => {
         state.userData = action.payload;
-        state.isUserDataLoading = false;
+        state.isUserDataLoading = LoadingStatus.Fulfilled;
       })
-      .addCase(fetchUserData.rejected, (state) => {
-        state.isUserDataLoading = false;
+      .addCase(getCurrentUserData.rejected, (state) => {
+        state.isUserDataLoading = LoadingStatus.Rejected;
       })
-      //comments in active offer
-      .addCase(fetchComments.pending, (state) => {
-        state.isCommentsDataLoading = true;
-        state.hasLoadCommentsError = false;
+      .addCase(loginAction.pending, (state) => {
+        state.isLoginLoading = LoadingStatus.Pending;
       })
-      .addCase(fetchComments.fulfilled, (state, action) => {
-        state.comments = action.payload;
-        state.isCommentsDataLoading = false;
-        state.hasLoadCommentsError = false;
+      .addCase(loginAction.fulfilled, (state, action) => {
+        state.userData = action.payload;
+        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.isLoginLoading = LoadingStatus.Fulfilled;
       })
-      .addCase(fetchComments.rejected, (state) => {
-        state.isCommentsDataLoading = false;
-        state.hasLoadCommentsError = true;
+      .addCase(loginAction.rejected, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.isLoginLoading = LoadingStatus.Rejected;
       })
-      // postComment
-      .addCase(postComment.pending, (state) => {
-        state.isCommentDataPosting = true;
-        state.hasSendCommentsError = false;
-      })
-      .addCase(
-        postComment.fulfilled,
-        (state, action: PayloadAction<PostComment | null>) => {
-          state.comment = action.payload;
-          state.isCommentDataPosting = false;
-          state.hasSendCommentsError = false;
-        }
-      )
-      .addCase(postComment.rejected, (state) => {
-        state.isCommentDataPosting = false;
-        state.hasSendCommentsError = true;
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
       });
   },
 });
-export const { setAuthorizationStatus, addUserData } = userSlice.actions;
+export const { requireAuthStatus } = userSlice.actions;
