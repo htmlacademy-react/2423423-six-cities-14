@@ -1,13 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { loginAction } from '../store/api-actions';
-import { useAppDispatch } from '../types/store';
+import { useAppDispatch, useAppSelector } from '../types/store';
 import { FormEvent, useRef, useState } from 'react';
 import { AppRoute } from '../consts/route';
-import Logo from '../components/Logo/Logo';
-import { LOCATIONS_NAME } from '../consts/consts';
+import Logo from '../components/logo';
+import { AuthorizationStatus, LOCATIONS_NAME } from '../consts/consts';
 
 export default function Login() {
   const navigate = useNavigate();
+  const authorizationStatus = useAppSelector(
+    (state) => state.user.authorizationStatus
+  );
   const [loginData, setLoginData] = useState('');
   const [passwordData, setPasswordData] = useState('');
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -23,10 +26,16 @@ export default function Login() {
           password: passwordData,
         })
       );
-      navigate(AppRoute.Root);
+      if (authorizationStatus === AuthorizationStatus.Auth) {
+        return navigate(AppRoute.Root);
+      } else {
+        setLoginData('');
+        setPasswordData('');
+      }
     }
   };
-  const getRandomCity = (cities: string[]) => cities[Math.floor(Math.random() * 6)];
+  const getRandomCity = (cities: string[]) =>
+    cities[Math.floor(Math.random() * 6)];
   const randomCity = getRandomCity(LOCATIONS_NAME);
 
   return (
@@ -59,6 +68,7 @@ export default function Login() {
                   placeholder="Email"
                   value={loginData}
                   onChange={(e) => setLoginData(e.target.value)}
+                  pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$"
                   required
                 />
               </div>
@@ -72,6 +82,7 @@ export default function Login() {
                   placeholder="Password"
                   value={passwordData}
                   onChange={(e) => setPasswordData(e.target.value)}
+                  pattern="^(?=.*[a-zA-Z])(?=.*\d).+$"
                   required
                 />
               </div>
