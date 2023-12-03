@@ -15,6 +15,7 @@ export const MAX_COMMENT_LENGTH = 300;
 export const NEARBY_COUNT = 3;
 export const DEFAULT_LOCATION = 'Paris';
 export const DEFAULT_SORTING = 'Popular';
+export const DEFAULT_VALUE_NULL = 0;
 export const RATING_NUMBERS = {
   5: 'perfect',
   4: 'good',
