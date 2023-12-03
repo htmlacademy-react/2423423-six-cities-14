@@ -7,7 +7,7 @@ export const getSortingOption = (state: State) => state.offers.sortingOption;
 
 export const getCurrentOffer = (state: Pick<State, NameSpace.Offers>): OfferApi | null => state[NameSpace.Offers].currentOffer;
 
-export const getCurrentComments = (state: Pick<State, NameSpace.Offers>): Comment[] | null => state[NameSpace.Offers].currentOfferComments;
+export const getCurrentComments = (state: Pick<State, NameSpace.Offers>): Comment[] => state[NameSpace.Offers].currentOfferComments;
 
 export const getNearbyOffers = (state: Pick<State, NameSpace.Offers>): OfferApi[] => state.offers.nearbyOffers;
 
