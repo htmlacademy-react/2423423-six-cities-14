@@ -1,7 +1,7 @@
 import { DEFAULT_SORTING, LoadingStatus } from '../../consts/consts';
 import { offerSlice } from './offer';
 
-describe('auth status slice', () => {
+describe('offer slice', () => {
   it('should return initial state with empty action', () => {
     const emptyAction = { type: '' };
 
