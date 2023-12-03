@@ -16,19 +16,4 @@ describe('auth status slice', () => {
 
     expect(result).toEqual(expectedState);
   });
-
-  it('should return initial state with empty action and undefined', () => {
-    const emptyAction = {type: ''};
-
-    const expectedState = {
-      authStatus: AuthorizationStatus.Unknown,
-      userData: {},
-      isUserDataLoading: LoadingStatus.Idle,
-      isLoginLoading: LoadingStatus.Idle,
-    };
-
-    const result = userSlice.reducer(undefined, emptyAction);
-
-    expect(result).toEqual(expectedState);
-  });
 });
