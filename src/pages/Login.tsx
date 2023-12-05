@@ -28,7 +28,8 @@ export default function Login() {
       );
       if (authorizationStatus === AuthorizationStatus.Auth) {
         return navigate(AppRoute.Root);
-      } else {
+      }
+      if (authorizationStatus === AuthorizationStatus.Unknown) {
         setLoginData('');
         setPasswordData('');
       }

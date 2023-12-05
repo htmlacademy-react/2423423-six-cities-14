@@ -41,9 +41,9 @@ function HeaderAuth({ isFavoritesPage }: IFavoritesProprs) {
               overflow: 'hidden',
             }}
           >
-            <img src={userInfo?.avatarUrl} alt="user avatar" />
+            <img src={userInfo.avatarUrl} alt="user avatar" />
           </div>
-          <span className="header__user-name user__name">{userInfo?.name}</span>
+          <span className="header__user-name user__name">{userInfo.email}</span>
           <span className="header__favorite-count">
             {favoriteOffers.length}
           </span>
