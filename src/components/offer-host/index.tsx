@@ -7,9 +7,7 @@ function Host({ currentOffer }: OfferProps) {
   const offerAvatarWrapperClass = classNames(
     'offer__avatar-wrapper',
     'user__avatar-wrapper',
-    {
-      'offer__avatar-wrapper--pro ': currentOffer.host.isPro,
-    }
+    {'offer__avatar-wrapper--pro ': currentOffer.host.isPro,}
   );
 
   return (

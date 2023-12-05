@@ -3,10 +3,8 @@ import { useAppSelector } from '../../types/store';
 import HeaderAuth from '../header-auth';
 import HeaderNoAuth from '../header-no-auth';
 
-type IFavoritesProprs = {
-  isFavoritesPage?: boolean;
-};
-function UserNav({ isFavoritesPage }: IFavoritesProprs) {
+
+function UserNav() {
   const authorizationStatus = useAppSelector(
     (state) => state.user.authorizationStatus
   );
@@ -15,7 +13,7 @@ function UserNav({ isFavoritesPage }: IFavoritesProprs) {
     <nav className="header__nav">
       <ul className="header__nav-list">
         {authorizationStatus === AuthorizationStatus.Auth ? (
-          <HeaderAuth isFavoritesPage={isFavoritesPage} />
+          <HeaderAuth />
         ) : (
           <HeaderNoAuth />
         )}

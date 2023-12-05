@@ -5,6 +5,8 @@ import useMap from '../../hooks/useMap';
 import { OfferApi } from '../../types/offer';
 import classNames from 'classnames';
 import { Location } from '../../types/location';
+import { IconConfig, activeIconConfig, defaultIconConfig } from '../../consts/consts';
+import {memo} from 'react';
 
 type TCityProps = {
   location: Location;
@@ -12,30 +14,6 @@ type TCityProps = {
   specialOfferId: string | null;
   isOfferPage?: boolean;
   isMainPage?: boolean;
-};
-
-type IconConfig = {
-  url: string;
-  width: number;
-  height: number;
-  anchorX: number;
-  anchorY: number;
-};
-
-const defaultIconConfig: IconConfig = {
-  url: 'img/pin.svg',
-  width: 27,
-  height: 39,
-  anchorX: 13.5,
-  anchorY: 40,
-};
-
-const activeIconConfig: IconConfig = {
-  url: 'img/pin-active.svg',
-  width: 27,
-  height: 39,
-  anchorX: 13.5,
-  anchorY: 40,
 };
 
 function createIcon(config: IconConfig) {
@@ -46,7 +24,7 @@ function createIcon(config: IconConfig) {
   });
 }
 
-export default function Map(props: TCityProps): JSX.Element {
+function MapMemo(props: TCityProps): JSX.Element {
   const { location, offers, specialOfferId, isMainPage, isOfferPage } = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, location);
@@ -91,3 +69,6 @@ export default function Map(props: TCityProps): JSX.Element {
 
   return <section className={mapClass} ref={mapRef}></section>;
 }
+
+const Map = memo(MapMemo);
+export default Map;

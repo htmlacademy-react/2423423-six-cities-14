@@ -30,10 +30,8 @@ export default function NotFound(): JSX.Element {
           </section>
         </div>
         <div className=" not-found-page">
-          <h1>
-            <span>404	&#128373;</span>
-            <span>It seems that the page you are looking for doesn&apos;t exist</span>
-          </h1>
+          <span>404</span>
+          <h1>Sorry, page not found</h1>
           <Link to={AppRoute.Root}>Back to main page</Link>
           <img src={dino} alt="dino photo page not found" width={400} />
         </div>
