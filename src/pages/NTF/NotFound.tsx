@@ -5,6 +5,7 @@ import Tabs from '../../components/tabs';
 import dino from '../../assets/Dino.png';
 import './styles.css';
 import { AppRoute } from '../../consts/route';
+import UserNav from '../../components/user-navigation';
 
 export default function NotFound(): JSX.Element {
   return (
@@ -18,6 +19,7 @@ export default function NotFound(): JSX.Element {
             <div className="header__left">
               <Logo />
             </div>
+            <UserNav />
           </div>
         </div>
       </header>
@@ -28,10 +30,9 @@ export default function NotFound(): JSX.Element {
           </section>
         </div>
         <div className=" not-found-page">
-          <h1>Page not found </h1>
-          <Link to={AppRoute.Root}>
-            <p>Go to main page</p>
-          </Link>
+          <span>404</span>
+          <h1>Sorry, page not found</h1>
+          <Link to={AppRoute.Root}>Back to main page</Link>
           <img src={dino} alt="dino photo page not found" width={400} />
         </div>
       </main>

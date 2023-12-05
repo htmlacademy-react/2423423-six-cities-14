@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts/route';
 import { store } from '../../store';
 import {
@@ -7,24 +7,21 @@ import {
   logoutAction,
 } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../types/store';
-
+import { useEffect } from 'react';
 store.dispatch(getCurrentUserData());
-store.dispatch(fetchFavorites());
 
-type IFavoritesProprs = {
-  isFavoritesPage?: boolean;
-};
 
-function HeaderAuth({ isFavoritesPage }: IFavoritesProprs) {
+function HeaderAuth() {
   const userInfo = useAppSelector((state) => state.user.userData);
   const favoriteOffers = useAppSelector((state) => state.offers.favoriteOffers);
 
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, []);
+
   const handleClick = () => {
     dispatch(logoutAction());
-    if (isFavoritesPage) {
-      <Navigate to={AppRoute.Login} />;
-    }
   };
 
   return (
@@ -41,9 +38,9 @@ function HeaderAuth({ isFavoritesPage }: IFavoritesProprs) {
               overflow: 'hidden',
             }}
           >
-            <img src={userInfo?.avatarUrl} alt="user avatar" />
+            <img src={userInfo.avatarUrl} alt="user avatar" />
           </div>
-          <span className="header__user-name user__name">{userInfo?.name}</span>
+          <span className="header__user-name user__name">{userInfo.email}</span>
           <span className="header__favorite-count">
             {favoriteOffers.length}
           </span>

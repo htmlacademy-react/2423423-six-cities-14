@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../types/store';
-import { AuthorizationStatus } from '../../consts/consts';
+import { AuthorizationStatus, IconSize } from '../../consts/consts';
 import { AppRoute } from '../../consts/route';
 import classNames from 'classnames';
 import { setIsFavorite } from '../../store/api-actions';
@@ -12,13 +12,6 @@ type FavoriteButtonProps = {
   isPlaceCard?: boolean;
   isOfferCard?: boolean;
 };
-
-enum IconSize {
-  PlaceCardWidth = 18,
-  PlaceCardHeight = 19,
-  OfferCardWidth = 31,
-  OfferCardHeight = 33,
-}
 
 function FavoriteButton({
   offerId,
@@ -37,14 +30,14 @@ function FavoriteButton({
     ? IconSize.PlaceCardHeight
     : IconSize.OfferCardHeight;
 
-  const favBtnClass = classNames('button', {
+  const buttonClassNames = classNames('button', {
     'place-card__bookmark-button--active': isFavorite && isPlaceCard,
     'place-card__bookmark-button': isPlaceCard,
     'offer__bookmark-button--active': isFavorite && isOfferCard,
     'offer__bookmark-button': isOfferCard,
   });
 
-  const favIconClass = classNames({
+  const iconClassNames = classNames({
     'place-card__bookmark-icon': isPlaceCard,
     'offer__bookmark-icon': isOfferCard,
   });
@@ -54,19 +47,19 @@ function FavoriteButton({
       navigate(AppRoute.Login);
     }
     if (authStatus === AuthorizationStatus.Auth && isFavorite) {
-      dispatch(setIsFavorite({offerId, status: 0}));
+      dispatch(setIsFavorite({ offerId, status: 0 }));
     } else {
-      dispatch(setIsFavorite({offerId, status: 1}));
+      dispatch(setIsFavorite({ offerId, status: 1 }));
     }
   };
 
   return (
     <button
-      className={favBtnClass}
+      className={buttonClassNames}
       type="button"
       onClick={handleFavoriteButtonClick}
     >
-      <svg className={favIconClass} width={iconWidth} height={iconHeight}>
+      <svg className={iconClassNames} width={iconWidth} height={iconHeight}>
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
       <span className="visually-hidden">

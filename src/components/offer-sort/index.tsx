@@ -2,21 +2,14 @@ import { useAppDispatch, useAppSelector } from '../../types/store';
 import { useState } from 'react';
 import { offerSlice } from '../../store/slices/offer';
 import classNames from 'classnames';
+import { sortingOptions } from '../../consts/consts';
 
 function OfferSorting() {
-  const sortingOptions = [
-    'Popular',
-    'Price: low to high',
-    'Price: high to low',
-    'Top rated first',
-  ];
   const [isOptionsOpened, setIsOptionsOpened] = useState(false);
-  const optionsClassName = classNames(
+  const optionsClassNames = classNames(
     'places__options',
     'places__options--custom',
-    {
-      'places__options--opened': isOptionsOpened,
-    }
+    {'places__options--opened': isOptionsOpened,}
   );
   const activeOption = useAppSelector((store) => store.offers.sortingOption);
   const dispatch = useAppDispatch();
@@ -39,7 +32,7 @@ function OfferSorting() {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={optionsClassName}>
+      <ul className={optionsClassNames}>
         {sortingOptions.map((option) => (
           <li
             key={option}

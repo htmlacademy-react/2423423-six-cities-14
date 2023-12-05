@@ -101,3 +101,41 @@ export const enum LoadingStatus {
   Fulfilled = 'fulfilled',
   Rejected = 'rejected',
 }
+
+export enum IconSize {
+  PlaceCardWidth = 18,
+  PlaceCardHeight = 19,
+  OfferCardWidth = 31,
+  OfferCardHeight = 33,
+}
+
+export type IconConfig = {
+  url: string;
+  width: number;
+  height: number;
+  anchorX: number;
+  anchorY: number;
+};
+
+export const defaultIconConfig: IconConfig = {
+  url: 'img/pin.svg',
+  width: 27,
+  height: 39,
+  anchorX: 13.5,
+  anchorY: 40,
+};
+
+export const activeIconConfig: IconConfig = {
+  url: 'img/pin-active.svg',
+  width: 27,
+  height: 39,
+  anchorX: 13.5,
+  anchorY: 40,
+};
+
+export const sortingOptions = [
+  'Popular',
+  'Price: low to high',
+  'Price: high to low',
+  'Top rated first',
+];

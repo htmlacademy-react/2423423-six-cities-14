@@ -14,6 +14,7 @@ import CityCards from '../components/city-cards';
 import { getSortingOption } from '../store/slices/selectors';
 import { citySlice } from '../store/slices/city';
 import { store } from '../store';
+// import { AppRoute } from '../consts/route';
 
 store.dispatch(fetchOffers());
 
@@ -23,6 +24,7 @@ export default function Main(): JSX.Element {
   const offersList = useAppSelector((state) => state.offers.offers);
   const currentCity = useAppSelector((state) => state.city.city);
 
+  // const error = useAppSelector((state) => state.offers.error);
 
   const currentCityOffers: OfferApi[] = offersList.filter((offer) => offer.city.name === currentCity);
 
@@ -64,6 +66,10 @@ export default function Main(): JSX.Element {
   if (!isOffersDataLoading) {
     return <Spinner />;
   }
+
+  // if(error !== null){
+  //   return <Navigate to={AppRoute.NotFound} />;
+  // }
   return (
     <div className="page page--gray page--main">
       <header className="header">

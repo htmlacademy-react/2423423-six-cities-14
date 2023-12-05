@@ -17,7 +17,7 @@ export default function CityCards({ offers }: TPlacesProps) {
   function handleCardHover(offerId: string | null) {
     setHoveredOfferId(offerId);
   }
-  const cityLocation = CITIES_MAP.find((city) => city.name === activeCityName)?.location;
+  const location = CITIES_MAP.find((city) => city.name === activeCityName)?.location;
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -34,10 +34,10 @@ export default function CityCards({ offers }: TPlacesProps) {
         </div>
       </section>
       <div className="cities__right-section">
-        {cityLocation && (
+        {location && (
           <Map
             offers={offers}
-            location={cityLocation}
+            location={location}
             specialOfferId={hoveredOfferId}
             isMainPage
           />

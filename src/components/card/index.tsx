@@ -4,6 +4,7 @@ import FavoriteButton from '../favorite-button';
 import { getRating } from '../../store/slices/selectors';
 import classNames from 'classnames';
 import { AppRoute } from '../../consts/route';
+import { memo } from 'react';
 
 type CardProps = {
   offer: OfferApi;
@@ -13,15 +14,14 @@ type CardProps = {
   isOfferPage?: boolean;
 };
 
-export default function Card({
+function CardMemo({
   offer,
   onCardHover,
   isMainPage = true,
   isFavoritesPage,
   isOfferPage,
 }: CardProps) {
-  const isPremium = 'Premium';
-  const ratingPrecentage = getRating(offer.rating);
+  const rating = getRating(offer.rating);
 
   const cardClass = classNames('place-card', {
     'cities__card': isMainPage,
@@ -33,22 +33,15 @@ export default function Card({
     'cities__image-wrapper': isMainPage,
     'favorites__image-wrapper': isFavoritesPage,
   });
-  function handleMouseEnter() {
-    onCardHover?.(offer.id);
-  }
-
-  function handleMouseLeave() {
-    onCardHover?.(null);
-  }
 
   return (
     <article
       className={cardClass}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => onCardHover?.(offer.id)}
+      onMouseLeave={() => onCardHover?.(null)}
     >
       <div className={offer.isPremium ? 'place-card__mark' : ''}>
-        <span>{offer.isPremium && isPremium}</span>
+        <span>{offer.isPremium && 'Premium'}</span>
       </div>
 
       <div className={imageWrapperClass}>
@@ -72,7 +65,7 @@ export default function Card({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${ratingPrecentage}%` }}></span>
+            <span style={{ width: `${rating}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -84,3 +77,6 @@ export default function Card({
     </article>
   );
 }
+
+const Card = memo(CardMemo);
+export default Card;
