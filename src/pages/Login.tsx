@@ -24,7 +24,6 @@ export default function Login() {
           password: passwordData,
         })
       );
-
       if (authorizationStatus === AuthorizationStatus.Unknown) {
         setLoginData('');
         setPasswordData('');

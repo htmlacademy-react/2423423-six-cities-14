@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts/route';
-// import { store } from '../../store';
 import {
   fetchFavorites,
   getCurrentUserData,
@@ -19,10 +18,6 @@ function HeaderAuth() {
     dispatch(fetchFavorites());
     dispatch(getCurrentUserData());
   }, [dispatch]);
-
-  // const handleClick = () => {
-  //   dispatch(logoutAction());
-  // };
 
   return (
     <>
