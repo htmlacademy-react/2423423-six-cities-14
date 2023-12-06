@@ -55,8 +55,8 @@ export const userSlice = createSlice({
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
-        state.userData = {};
-        state.isLoginLoading = LoadingStatus.Rejected;
+        // state.userData = {};
+        // state.isLoginLoading = LoadingStatus.Rejected;
       });
   },
 });

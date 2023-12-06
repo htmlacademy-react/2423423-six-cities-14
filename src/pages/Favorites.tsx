@@ -1,28 +1,28 @@
 import { useAppSelector } from '../types/store';
-import FavoritesEmpty from './FavoritesEmpty';
+import FavoritesEmpty from '../components/favorites-empty';
 import Footer from '../components/footer';
 import classNames from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../components/logo';
 import UserNav from '../components/user-navigation';
 import FavoriteList from '../components/favorite-list';
-import { useEffect } from 'react';
-import { AuthorizationStatus } from '../consts/consts';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../consts/route';
+// import { useEffect } from 'react';
+// import { AuthorizationStatus } from '../consts/consts';
+// import { useNavigate } from 'react-router-dom';
+// import { AppRoute } from '../consts/route';
 
 
 export default function Favorites() {
   const favoriteOffers = useAppSelector((state) => state.offers.favoriteOffers);
-  const authStatus = useAppSelector((state) => state.user.authorizationStatus);
+  // const authStatus = useAppSelector((state) => state.user.authorizationStatus);
   const pageClass = classNames('page', {'page--favorites-empty': favoriteOffers.length <= 0});
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (authStatus !== AuthorizationStatus.Auth) {
-      navigate(AppRoute.Login);
-    }
-  }, [authStatus, navigate]);
+  // useEffect(() => {
+  //   if (authStatus !== AuthorizationStatus.Auth) {
+  //     navigate(AppRoute.Login);
+  //   }
+  // }, [authStatus, navigate]);
   return (
     <div className={pageClass}>
       <Helmet>

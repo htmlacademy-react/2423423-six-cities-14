@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts/route';
-import { store } from '../../store';
+// import { store } from '../../store';
 import {
   fetchFavorites,
   getCurrentUserData,
@@ -8,7 +8,6 @@ import {
 } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../types/store';
 import { useEffect } from 'react';
-store.dispatch(getCurrentUserData());
 
 
 function HeaderAuth() {
@@ -18,11 +17,12 @@ function HeaderAuth() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchFavorites());
-  }, []);
+    dispatch(getCurrentUserData());
+  }, [dispatch]);
 
-  const handleClick = () => {
-    dispatch(logoutAction());
-  };
+  // const handleClick = () => {
+  //   dispatch(logoutAction());
+  // };
 
   return (
     <>
@@ -47,10 +47,15 @@ function HeaderAuth() {
         </Link>
       </li>
       <li className="header__nav-item">
-        <Link to={AppRoute.Root} className="header__nav-link">
-          <span className="header__signout" onClick={() => handleClick()}>
-            Sign out
-          </span>
+        <Link
+          to={AppRoute.Root}
+          className="header__nav-link"
+          onClick={(evt) => {
+            evt.preventDefault();
+            dispatch(logoutAction());
+          }}
+        >
+          <span className="header__signout">Sign out</span>
         </Link>
       </li>
     </>
