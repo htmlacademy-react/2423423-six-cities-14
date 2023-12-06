@@ -19,7 +19,7 @@ function OfferSorting() {
   };
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" data-testid='offer sort'>
       <span className="places__sorting-caption">Sort by</span>
       <span
         className="places__sorting-type"

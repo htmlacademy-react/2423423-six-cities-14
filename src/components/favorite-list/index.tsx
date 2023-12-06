@@ -1,10 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { LOCATIONS_NAME, LoadingStatus } from '../../consts/consts';
+import { LOCATIONS_NAME } from '../../consts/consts';
 import { OfferApi } from '../../types/offer';
 import { AppRoute } from '../../consts/route';
 import Card from '../card';
-import { useAppSelector } from '../../types/store';
-import Spinner from '../spinner';
+
 
 type FavoritesListProps = {
   favoriteOffers: OfferApi[];
@@ -13,13 +12,6 @@ function FavoriteList({ favoriteOffers }: FavoritesListProps) {
   const filterLocation = LOCATIONS_NAME.filter((location) =>
     favoriteOffers.map((item) => item.city.name).includes(location)
   );
-  const loadingStatus = useAppSelector((state) => state.offers.isFavoriteDataLoading);
-
-  if (loadingStatus === LoadingStatus.Idle || loadingStatus === LoadingStatus.Pending) {
-    return (
-      <Spinner />
-    );
-  }
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">

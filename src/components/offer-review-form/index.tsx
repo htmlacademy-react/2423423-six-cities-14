@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { ChangeEvent, FormEvent, Fragment, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../types/store';
 import { addComment } from '../../store/api-actions';
@@ -41,7 +40,6 @@ export default function ReviewForm({ id }: ReviewFormProps) {
         setRating(0);
       })
       .catch(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         toast.error('Failed to send a review. Please try again');
       });
   };
@@ -52,7 +50,7 @@ export default function ReviewForm({ id }: ReviewFormProps) {
       action="#"
       method="post"
       onSubmit={handleFormSubmit}
-      ref={formRef}
+      ref={formRef} data-testid ='review form'
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review

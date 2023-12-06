@@ -21,7 +21,7 @@ function HeaderAuth() {
 
   return (
     <>
-      <li className="header__nav-item user">
+      <li className="header__nav-item user" data-testid ='auth'>
         <Link
           to={AppRoute.Favorites}
           className="header__nav-link header__nav-link--profile"

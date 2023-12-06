@@ -5,7 +5,7 @@ type OfferImgProps = {
 
 function OfferImage({image} : OfferImgProps) {
   return (
-    <div className="offer__image-wrapper">
+    <div className="offer__image-wrapper" data-testid ='offer image'>
       <img className="offer__image" src={image} alt="Photo studio" />
     </div>
   );

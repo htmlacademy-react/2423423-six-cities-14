@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../types/store';
 import { AuthorizationStatus, IconSize } from '../../consts/consts';
 import { AppRoute } from '../../consts/route';
@@ -53,20 +53,32 @@ function FavoriteButton({
     }
   };
 
-  return (
-    <button
-      className={buttonClassNames}
-      type="button"
-      onClick={handleFavoriteButtonClick}
-    >
-      <svg className={iconClassNames} width={iconWidth} height={iconHeight}>
-        <use xlinkHref="#icon-bookmark"></use>
-      </svg>
-      <span className="visually-hidden">
-        {!isFavorite ? 'To bookmark' : 'In bookmark'}
-      </span>
-    </button>
-  );
+  return authStatus === AuthorizationStatus.Unknown ||
+    authStatus === AuthorizationStatus.NoAuth ? (
+      <Link to={AppRoute.Login} className="link">
+        <button className={buttonClassNames} type="button">
+          <svg className={iconClassNames} width={iconWidth} height={iconHeight}>
+            <use xlinkHref="#icon-bookmark"></use>
+          </svg>
+          <span className="visually-hidden">
+            {!isFavorite ? 'In bookmarks' : 'To bookmarks'}
+          </span>
+        </button>
+      </Link>
+    ) : (
+      <button
+        className={buttonClassNames}
+        type="button"
+        onClick={handleFavoriteButtonClick}
+      >
+        <svg className={iconClassNames} width={iconWidth} height={iconHeight}>
+          <use xlinkHref="#icon-bookmark"></use>
+        </svg>
+        <span className="visually-hidden">
+          {!isFavorite ? 'To bookmark' : 'In bookmark'}
+        </span>
+      </button>
+    );
 }
 
 export default FavoriteButton;
