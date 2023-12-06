@@ -10,7 +10,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import {
   AuthorizationStatus,
   LOCATIONS_NAME,
-  // LoadingStatus,
 } from './consts/consts';
 import Spinner from './components/spinner';
 import RedirectToMain from './components/redirect-main';
@@ -26,12 +25,7 @@ export default function App(): JSX.Element {
   const authorizationStatus = useAppSelector(
     (state) => state.user.authorizationStatus
   );
-  // const loadingStatus = useAppSelector(
-  //   (state) => state.offers.isOffersDataLoading
-  // );
   if (
-    // loadingStatus === LoadingStatus.Idle ||
-    // loadingStatus === LoadingStatus.Pending ||
     authorizationStatus === AuthorizationStatus.Unknown
   ) {
     return <Spinner />;

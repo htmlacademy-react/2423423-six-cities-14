@@ -2,12 +2,10 @@ import { Link } from 'react-router-dom';
 import { loginAction } from '../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../types/store';
 import { FormEvent, useRef, useState } from 'react';
-// import { AppRoute } from '../consts/route';
 import Logo from '../components/logo';
 import { AuthorizationStatus, LOCATIONS_NAME } from '../consts/consts';
 
 export default function Login() {
-  // const navigate = useNavigate();
   const authorizationStatus = useAppSelector(
     (state) => state.user.authorizationStatus
   );
@@ -26,9 +24,7 @@ export default function Login() {
           password: passwordData,
         })
       );
-      // if (authorizationStatus === AuthorizationStatus.Auth) {
-      //   return navigate(AppRoute.Root);
-      // }
+
       if (authorizationStatus === AuthorizationStatus.Unknown) {
         setLoginData('');
         setPasswordData('');

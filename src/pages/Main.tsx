@@ -13,10 +13,7 @@ import UserNav from '../components/user-navigation';
 import CityCards from '../components/city-cards';
 import { getSortingOption } from '../store/slices/selectors';
 import { citySlice } from '../store/slices/city';
-// import { store } from '../store';
-// import { AppRoute } from '../consts/route';
 
-// store.dispatch(fetchOffers());
 
 export default function Main(): JSX.Element {
   const navigate = useNavigate();
