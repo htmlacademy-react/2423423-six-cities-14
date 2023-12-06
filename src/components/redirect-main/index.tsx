@@ -11,10 +11,10 @@ function RedirectToMain({ children }: RedirectToMainRouteProps) {
   const authorizationStatus = useAppSelector(
     (state) => state.user.authorizationStatus
   );
-  return authorizationStatus === AuthorizationStatus.Auth ? (
-    <Navigate to={AppRoute.Root} />
-  ) : (
+  return authorizationStatus !== AuthorizationStatus.Auth ? (
     children
+  ) : (
+    <Navigate to={AppRoute.Root} />
   );
 }
 

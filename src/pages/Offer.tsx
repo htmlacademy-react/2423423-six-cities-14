@@ -32,7 +32,6 @@ import Card from '../components/card';
 import Spinner from '../components/spinner';
 
 export default function Offer() {
-  const isPremium = 'Premium';
   const dispatch = useAppDispatch();
   const offerId = useParams().id;
   const currentOffer = useAppSelector(getCurrentOffer);
@@ -91,7 +90,7 @@ export default function Offer() {
           <div className="offer__container container">
             <div className="offer__wrapper">
               <div className={currentOffer.isPremium ? 'offer__mark' : ''}>
-                <span>{currentOffer.isPremium && isPremium}</span>
+                <span>{currentOffer.isPremium && 'Premium'}</span>
               </div>
 
               <div className="offer__name-wrapper">

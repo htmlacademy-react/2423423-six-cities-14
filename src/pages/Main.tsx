@@ -3,7 +3,7 @@ import Tabs from '../components/tabs';
 import { useAppDispatch, useAppSelector } from '../types/store';
 import { OfferApi } from '../types/offer';
 import Spinner from '../components/spinner';
-import { MainEmpty } from './MainEmpty';
+import { MainEmpty } from '../components/main-empty';
 import { fetchOffers } from '../store/api-actions';
 import { DEFAULT_LOCATION } from '../consts/consts';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,19 +13,14 @@ import UserNav from '../components/user-navigation';
 import CityCards from '../components/city-cards';
 import { getSortingOption } from '../store/slices/selectors';
 import { citySlice } from '../store/slices/city';
-import { store } from '../store';
-// import { AppRoute } from '../consts/route';
 
-store.dispatch(fetchOffers());
 
 export default function Main(): JSX.Element {
   const navigate = useNavigate();
   const currentSortOption = useAppSelector(getSortingOption);
+
   const offersList = useAppSelector((state) => state.offers.offers);
   const currentCity = useAppSelector((state) => state.city.city);
-
-  // const error = useAppSelector((state) => state.offers.error);
-
   const currentCityOffers: OfferApi[] = offersList.filter((offer) => offer.city.name === currentCity);
 
   const dispatch = useAppDispatch();
@@ -33,6 +28,9 @@ export default function Main(): JSX.Element {
   const isOffersDataLoading = useAppSelector(
     (state) => state.offers.isOffersDataLoading
   );
+  useEffect(() => {
+    dispatch(fetchOffers());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(citySlice.actions.changeCity(location));
@@ -67,9 +65,6 @@ export default function Main(): JSX.Element {
     return <Spinner />;
   }
 
-  // if(error !== null){
-  //   return <Navigate to={AppRoute.NotFound} />;
-  // }
   return (
     <div className="page page--gray page--main">
       <header className="header">
