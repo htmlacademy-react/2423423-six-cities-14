@@ -3,7 +3,7 @@ import { Comment } from '../types/comment';
 
 const reviewMocks: Comment[] = [
   {
-    id: 1,
+    id: '1',
     user: {
       id: 15,
       isPro: true,
@@ -16,7 +16,7 @@ const reviewMocks: Comment[] = [
   },
 
   {
-    id: 2,
+    id: '2',
     user: {
       id: 14,
       isPro: false,
@@ -29,7 +29,7 @@ const reviewMocks: Comment[] = [
   },
 
   {
-    id: 3,
+    id: '3',
     user: {
       id: 16,
       isPro: false,
@@ -42,7 +42,7 @@ const reviewMocks: Comment[] = [
   },
 
   {
-    id: 4,
+    id: '4',
     user: {
       id: 12,
       isPro: true,
