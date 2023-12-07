@@ -12,7 +12,7 @@ describe('Component: Header auth', () => {
     render(
       <Provider store={store}>
         <Router>
-          <HeaderAuth/>
+          <HeaderAuth />
         </Router>
       </Provider>
     );

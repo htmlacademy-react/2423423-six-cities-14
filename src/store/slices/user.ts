@@ -9,14 +9,14 @@ import { UserData } from '../../types/api-data';
 
 interface IInitialState {
   authorizationStatus: AuthorizationStatus;
-  userData: UserData | Record<string, never>;
+  userData: UserData | null;
   isUserDataLoading: LoadingStatus;
   isLoginLoading: LoadingStatus;
 }
 
 const initialState: IInitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userData: {},
+  userData: null,
   isUserDataLoading: LoadingStatus.Idle,
   isLoginLoading: LoadingStatus.Idle,
 };
@@ -28,6 +28,9 @@ export const userSlice = createSlice({
     requireAuthStatus(state, action: PayloadAction<AuthorizationStatus>) {
       state.authorizationStatus = action.payload;
     },
+    resetUserData(state, action: PayloadAction<UserData | null>) {
+      state.userData = action.payload;
+    }
   },
   extraReducers(builder) {
     builder

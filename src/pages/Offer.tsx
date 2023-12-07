@@ -97,7 +97,7 @@ export default function Offer() {
                 <h1 className="offer__name">{currentOffer.title}</h1>
                 <FavoriteButton
                   offerId={currentOffer.id}
-                  isFavorite={currentOffer.isFavorite}
+                  offer={currentOffer}
                   isPlaceCard={false}
                   isOfferCard
                 />
