@@ -7,7 +7,7 @@ describe('auth status slice', () => {
 
     const expectedState = {
       authorizationStatus: AuthorizationStatus.Unknown,
-      userData: {},
+      userData: null,
       isUserDataLoading: LoadingStatus.Idle,
       isLoginLoading: LoadingStatus.Idle,
     };
