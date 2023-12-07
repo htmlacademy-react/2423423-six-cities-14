@@ -2,7 +2,7 @@ import { AppRoute } from '../../consts/route';
 
 function Footer() {
   return (
-    <footer className="footer container">
+    <footer className="footer container" data-testid ='footer'>
       <a className="footer__logo-link" href={AppRoute.Root}>
         <img
           className="footer__logo"

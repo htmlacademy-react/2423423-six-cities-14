@@ -97,14 +97,14 @@ export default function Offer() {
                 <h1 className="offer__name">{currentOffer.title}</h1>
                 <FavoriteButton
                   offerId={currentOffer.id}
-                  isFavorite={currentOffer.isFavorite}
+                  offer={currentOffer}
                   isPlaceCard={false}
                   isOfferCard
                 />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${getRating(currentOffer.rating)}%` }} ></span>
+                  <span style={{ width: `${getRating(currentOffer.rating)}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">
@@ -113,7 +113,9 @@ export default function Offer() {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {currentOffer.type}
+                  {`${currentOffer.type[0].toUpperCase()}${currentOffer.type.slice(
+                    1
+                  )}`}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {currentOffer.bedrooms} Bedrooms

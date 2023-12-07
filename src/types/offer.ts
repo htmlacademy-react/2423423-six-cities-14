@@ -21,6 +21,7 @@ export type OfferApi = {
   description: string;
   goods: string[];
   host: {
+    id?: number;
     avatarUrl: string;
     isPro: boolean;
     name: string;

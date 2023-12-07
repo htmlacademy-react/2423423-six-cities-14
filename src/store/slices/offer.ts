@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OfferApi } from '../../types/offer';
-import {
-  DEFAULT_SORTING,
-  LoadingStatus,
-  NameSpace,
-} from '../../consts/consts';
+import { DEFAULT_SORTING, LoadingStatus, NameSpace } from '../../consts/consts';
 import {
   addComment,
   fetchCurrenfOffer,
@@ -49,12 +45,19 @@ const initialState: IInitialState = {
 export const offerSlice = createSlice({
   name: NameSpace.Offers,
   initialState,
-  reducers: { changeSortOption(state, action: PayloadAction<string>) {
-    state.sortingOption = action.payload;
+  reducers: {
+    changeSortOption(state, action: PayloadAction<string>) {
+      state.sortingOption = action.payload;
+    },
+    dropOffer(state, action: PayloadAction<null | OfferApi>) {
+      state.currentOffer = action.payload;
+    },
+    resetFavoriteOffer(state, action: PayloadAction<[] | OfferApi[]>) {
+      state.favoriteOffers = action.payload;
+      state.isFavoriteDataLoading = LoadingStatus.Idle;
+    },
   },
-  dropOffer(state, action: PayloadAction<null | OfferApi>) {
-    state.currentOffer = action.payload;
-  }},
+
   extraReducers(builder) {
     builder
       // ********** все предложения **********

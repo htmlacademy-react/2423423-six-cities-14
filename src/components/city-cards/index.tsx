@@ -19,7 +19,7 @@ export default function CityCards({ offers }: TPlacesProps) {
   }
   const location = CITIES_MAP.find((city) => city.name === activeCityName)?.location;
   return (
-    <div className="cities__places-container container">
+    <div className="cities__places-container container" data-testid = 'city cards'>
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">

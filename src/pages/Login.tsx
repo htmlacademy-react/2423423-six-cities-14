@@ -5,6 +5,7 @@ import { FormEvent, useRef, useState } from 'react';
 import Logo from '../components/logo';
 import { AuthorizationStatus, LOCATIONS_NAME } from '../consts/consts';
 
+
 export default function Login() {
   const authorizationStatus = useAppSelector(
     (state) => state.user.authorizationStatus

@@ -61,7 +61,7 @@ function CardMemo({
             <b className="place-card__price-value">{`€${offer.price}`}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton offerId={offer.id} isFavorite={offer.isFavorite} />
+          <FavoriteButton offerId={offer.id} offer={offer}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

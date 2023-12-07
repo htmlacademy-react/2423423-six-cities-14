@@ -7,29 +7,18 @@ import PrivateRoute from './pages/PrivateRoute';
 import './styles/styles.css';
 import { AppRoute } from './consts/route';
 import { HelmetProvider } from 'react-helmet-async';
-import {
-  AuthorizationStatus,
-  LOCATIONS_NAME,
-} from './consts/consts';
-import Spinner from './components/spinner';
+import { LOCATIONS_NAME } from './consts/consts';
 import RedirectToMain from './components/redirect-main';
 import Favorites from './pages/Favorites';
-import { useAppSelector } from './types/store';
-import { store } from './store';
-import { checkAuthAction } from './store/api-actions';
+import { useAppDispatch } from './types/store';
+import { checkAuthAction, fetchOffers } from './store/api-actions';
 import Scroll from './components/scroll';
 
-store.dispatch(checkAuthAction());
-
 export default function App(): JSX.Element {
-  const authorizationStatus = useAppSelector(
-    (state) => state.user.authorizationStatus
-  );
-  if (
-    authorizationStatus === AuthorizationStatus.Unknown
-  ) {
-    return <Spinner />;
-  }
+  const dispatch = useAppDispatch();
+  dispatch(checkAuthAction());
+  dispatch(fetchOffers());
+
   return (
     <HelmetProvider>
       <BrowserRouter>

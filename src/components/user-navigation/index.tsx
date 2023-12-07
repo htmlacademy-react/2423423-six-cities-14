@@ -10,7 +10,7 @@ function UserNav() {
   );
 
   return (
-    <nav className="header__nav">
+    <nav className="header__nav" data-testid='user navigation'>
       <ul className="header__nav-list">
         {authorizationStatus === AuthorizationStatus.Auth ? (
           <HeaderAuth />

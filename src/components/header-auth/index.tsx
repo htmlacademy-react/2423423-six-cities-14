@@ -7,21 +7,28 @@ import {
 } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../types/store';
 import { useEffect } from 'react';
+import { AuthorizationStatus } from '../../consts/consts';
+import { offerSlice } from '../../store/slices/offer';
+import { userSlice } from '../../store/slices/user';
 
 
 function HeaderAuth() {
   const userInfo = useAppSelector((state) => state.user.userData);
   const favoriteOffers = useAppSelector((state) => state.offers.favoriteOffers);
-
+  const authorizationStatus = useAppSelector(
+    (state) => state.user.authorizationStatus
+  );
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchFavorites());
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavorites());
+    }
     dispatch(getCurrentUserData());
   }, [dispatch]);
 
   return (
     <>
-      <li className="header__nav-item user">
+      <li className="header__nav-item user" data-testid="auth">
         <Link
           to={AppRoute.Favorites}
           className="header__nav-link header__nav-link--profile"
@@ -33,9 +40,9 @@ function HeaderAuth() {
               overflow: 'hidden',
             }}
           >
-            <img src={userInfo.avatarUrl} alt="user avatar" />
+            <img src={userInfo?.avatarUrl} alt="user avatar" />
           </div>
-          <span className="header__user-name user__name">{userInfo.email}</span>
+          <span className="header__user-name user__name">{userInfo?.email}</span>
           <span className="header__favorite-count">
             {favoriteOffers.length}
           </span>
@@ -48,6 +55,8 @@ function HeaderAuth() {
           onClick={(evt) => {
             evt.preventDefault();
             dispatch(logoutAction());
+            dispatch(offerSlice.actions.resetFavoriteOffer([]));
+            dispatch(userSlice.actions.resetUserData(null));
           }}
         >
           <span className="header__signout">Sign out</span>
